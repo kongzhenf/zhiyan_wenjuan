@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: questionnaire-app
+    build: .
+    ports:
+      - "8082:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/questionnaire_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD:-questionnaire123}
+      - SPRING_DATA_REDIS_HOST=redis
+      - SPRING_DATA_REDIS_PORT=6379
+      - JWT_SECRET=${JWT_SECRET:-default-secret-change-in-production-1234567890}
+      - H5_BASE_URL=${H5_BASE_URL:-http://10.32.129.153:3001/s}
+      - EXPORT_PATH=/app/exports
+    volumes:
+      - export-data:/app/exports
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: unless-stopped
+
+  mysql:
+    container_name: questionnaire-mysql
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD:-questionnaire123}
+      - MYSQL_DATABASE=questionnaire_db
+      - MYSQL_CHARSET=utf8mb4
+      - MYSQL_COLLATION=utf8mb4_unicode_ci
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    container_name: questionnaire-redis
+    image: redis:7-alpine
+    ports:
+      - "6381:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
+  redis-data:
+  export-data:

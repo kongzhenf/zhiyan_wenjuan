@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <title>问卷调查</title>
+    <link rel="stylesheet" href="design-system.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1 class="app-header__title" id="header-title">问卷调查</h1>
+        </header>
+
+        <div class="progress-bar" id="progress-bar">
+            <div class="progress-bar__fill" id="progress-fill"></div>
+        </div>
+
+        <main class="app-main">
+            <!-- PAGE-001: 加载状态页 -->
+            <section id="page-loading" class="page-section active">
+                <div class="skeleton-card">
+                  <div class="skeleton skeleton-title"></div>
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-text skeleton-text--short"></div>
+                </div>
+                <div class="skeleton-card">
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-option"></div>
+                  <div class="skeleton skeleton-option"></div>
+                  <div class="skeleton skeleton-option"></div>
+                </div>
+                <div class="skeleton-card">
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-option"></div>
+                  <div class="skeleton skeleton-option"></div>
+                  <div class="skeleton skeleton-option"></div>
+                </div>
+                <div class="skeleton-card">
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-option"></div>
+                  <div class="skeleton skeleton-option"></div>
+                  <div class="skeleton skeleton-option"></div>
+                </div>
+                <div class="skeleton-card">
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-text skeleton-text--short"></div>
+                </div>
+            </section>
+
+            <!-- PAGE-002: 问卷填写页 -->
+            <section id="page-survey-form" class="page-section">
+                <div class="survey-desc">
+                  感谢您参与本次员工满意度调查。本问卷采用匿名方式，调查结果仅用于改善公司管理与员工福利。请根据您的真实感受作答，预计用时3分钟。
+                </div>
+
+                <div class="question-card">
+                  <div class="question-card__header">
+                    <span class="question-card__number">1.</span>
+                    <span class="question-card__title">您对公司整体工作环境的满意程度？<span class="question-card__required">*</span></span>
+                  </div>
+                  <div class="form-option form-option--selected">
+                    <span class="form-option__indicator"></span>
+                    <span class="form-option__text">非常满意</span>
+                  </div>
+                  <div class="form-option">
+                    <span class="form-option__indicator"></span>
+                    <span class="form-option__text">比较满意</span>
+                  </div>
+                  <div class="form-option">
+                    <span class="form-option__indicator"></span>
+                    <span class="form-option__text">一般</span>
+                  </div>
+                  <div class="form-option">
+                    <span class="form-option__indicator"></span>
+                    <span class="form-option__text">不太满意</span>
+                  </div>
+                  <div class="form-option">
+                    <span class="form-option__indicator"></span>
+                    <span class="form-option__text">非常不满意</span>
+                  </div>
+                  <p class="question-card__error">此题为必填项</p>
+                </div>
+
+                <div class="question-card">
+                  <div class="question-card__header">
+                    <span class="question-card__number">2.</span>
+                    <span class="question-card__title">您最看重哪些员工福利？（可多选）<span class="question-card__required">*</span></span>
+                  </div>
+                  <div class="form-option form-option--checkbox form-option--selected">
+                    <span class="form-option__indicator"></span>
+                    <span class="form-option__text">弹性工作制</span>
+                  </div>
+                  <div class="form-option form-option--checkbox">
+                    <span class="form-option__indicator"></span>
+                    <span class="form-option__text">带薪年假</span>
+                  </div>
+                  <div class="form-option form-option--checkbox form-option--selected">
+                    <span class="form-option__indicator"></span>
+                    <span class="form-option__text">健身补贴</span>
+                  </div>
+                  <div class="form-option form-option--checkbox">
+                    <span class="form-option__indicator"></span>
+                    <span class="form-option__text">培训机会</span>
+                  </div>
+                  <p class="question-card__error">此题为必填项</p>
+                </div>
+
+                <div class="question-card">
+                  <div class="question-card__header">
+                    <span class="question-card__number">3.</span>
+                    <span class="question-card__title">您对公司有什么改进建议？<span class="question-card__required">*</span></span>
+                  </div>
+                  <textarea class="form-textarea" placeholder="请输入您的建议...">希望公司能增加更多的团建活动，加强部门之间的沟通协作，同时优化一下办公区域的空调温度调节。</textarea>
+                  <div class="form-char-count">42/500</div>
+                  <p class="question-card__error">此题为必填项</p>
+                </div>
+
+                <div class="question-card">
+                  <div class="question-card__header">
+                    <span class="question-card__number">4.</span>
+                    <span class="question-card__title">请为公司食堂评分<span class="question-card__required">*</span></span>
+                  </div>
+                  <div class="form-rating">
+                    <span class="form-rating__star form-rating__star--active">
+                      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="form-rating__star form-rating__star--active">
+                      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="form-rating__star form-rating__star--active">
+                      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="form-rating__star">
+                      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="form-rating__star">
+                      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="form-rating__value">3/5</span>
+                  </div>
+                  <p class="question-card__error">此题为必填项</p>
+                </div>
+
+                <div class="question-card">
+                  <div class="question-card__header">
+                    <span class="question-card__number">5.</span>
+                    <span class="question-card__title">您所在的部门<span class="question-card__required">*</span></span>
+                  </div>
+                  <div class="form-select">
+                    <div class="form-select__trigger">
+                      <span>技术部</span>
+                      <span class="form-select__arrow"></span>
+                    </div>
+                    <div class="form-select__dropdown">
+                      <div class="form-select__option form-select__option--selected">技术部</div>
+                      <div class="form-select__option">市场部</div>
+                      <div class="form-select__option">人事部</div>
+                    </div>
+                  </div>
+                  <p class="question-card__error">此题为必填项</p>
+                </div>
+            </section>
+
+            <!-- PAGE-003: 提交成功页 -->
+            <section id="page-submit-success" class="page-section">
+                <div class="status-page">
+                  <div class="status-page__icon">
+                    <svg viewBox="0 0 120 120" fill="none">
+                      <circle cx="60" cy="60" r="56" fill="#00C853" opacity="0.12"/>
+                      <circle cx="60" cy="60" r="42" fill="#00C853"/>
+                      <path d="M45 60l10 10 20-20" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <h2 class="status-page__title">提交成功</h2>
+                  <p class="status-page__desc">感谢您的参与！您的反馈对我们非常重要。</p>
+                </div>
+            </section>
+
+            <!-- PAGE-004: 问卷已结束页 -->
+            <section id="page-survey-closed" class="page-section">
+                <div class="status-page">
+                  <div class="status-page__icon">
+                    <svg viewBox="0 0 120 120" fill="none">
+                      <circle cx="60" cy="60" r="56" fill="#97A0B4" opacity="0.12"/>
+                      <circle cx="60" cy="60" r="42" fill="none" stroke="#97A0B4" stroke-width="4"/>
+                      <path d="M60 38v24l14 8" stroke="#97A0B4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <h2 class="status-page__title">问卷已结束</h2>
+                  <p class="status-page__desc">本问卷已停止收集，感谢您的关注。</p>
+                </div>
+            </section>
+
+            <!-- PAGE-005: 问卷不存在页 -->
+            <section id="page-not-found" class="page-section">
+                <div class="status-page">
+                  <div class="status-page__icon">
+                    <svg viewBox="0 0 120 120" fill="none">
+                      <circle cx="60" cy="60" r="56" fill="#FFB300" opacity="0.12"/>
+                      <circle cx="60" cy="60" r="42" fill="#FFB300"/>
+                      <text x="60" y="72" text-anchor="middle" font-size="36" font-weight="bold" fill="#fff">?</text>
+                    </svg>
+                  </div>
+                  <h2 class="status-page__title">问卷不存在</h2>
+                  <p class="status-page__desc">请检查访问链接是否正确，或联系问卷发布者获取最新链接。</p>
+                </div>
+            </section>
+
+            <!-- PAGE-006: 已重复提交页 -->
+            <section id="page-already-submitted" class="page-section">
+                <div class="status-page">
+                  <div class="status-page__icon">
+                    <svg viewBox="0 0 120 120" fill="none">
+                      <circle cx="60" cy="60" r="56" fill="#3D5AFE" opacity="0.12"/>
+                      <circle cx="60" cy="60" r="42" fill="#3D5AFE"/>
+                      <text x="60" y="72" text-anchor="middle" font-size="36" font-weight="bold" fill="#fff">i</text>
+                    </svg>
+                  </div>
+                  <h2 class="status-page__title">您已填写过本问卷</h2>
+                  <p class="status-page__desc">每台设备仅可提交一次，感谢您的参与。</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer" id="app-footer">
+            <button class="btn-primary" id="btn-submit" type="button">提交问卷</button>
+        </footer>
+
+        <div class="toast" id="toast"></div>
+    </div>
+
+    <script>
+    (function() {
+        'use strict';
+
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page-section').forEach(function(s) {
+                s.classList.remove('active');
+            });
+            var target = document.getElementById(pageId);
+            if (target) target.classList.add('active');
+
+            var footer = document.getElementById('app-footer');
+            var progressBar = document.getElementById('progress-bar');
+            if (pageId === 'page-survey-form') {
+                footer.style.display = 'flex';
+                progressBar.style.display = 'block';
+            } else {
+                footer.style.display = 'none';
+                progressBar.style.display = 'none';
+            }
+        }
+
+        function showToast(message, type) {
+            var toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast toast--' + (type || 'info') + ' toast--visible';
+            setTimeout(function() {
+                toast.classList.remove('toast--visible');
+            }, 2000);
+        }
+
+        function updateProgress(answered, total) {
+            var fill = document.getElementById('progress-fill');
+            var pct = total > 0 ? Math.round((answered / total) * 100) : 0;
+            fill.style.width = pct + '%';
+        }
+
+        window.SurveyApp = {
+            navigateTo: navigateTo,
+            showToast: showToast,
+            updateProgress: updateProgress
+        };
+
+        navigateTo('page-loading');
+        setTimeout(function() {
+            navigateTo('page-survey-form');
+        }, 1200);
+    })();
+    </script>
+</body>
+</html>

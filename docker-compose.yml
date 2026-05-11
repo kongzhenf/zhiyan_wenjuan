@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: questionnaire-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: questionnaire123
+      MYSQL_DATABASE: questionnaire_db
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./code/后端/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  redis:
+    image: redis:7-alpine
+    container_name: questionnaire-redis
+    ports:
+      - "6382:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  backend:
+    build:
+      context: ./code/后端
+      dockerfile: Dockerfile
+    container_name: questionnaire-backend
+    ports:
+      - "8082:8080"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: "3306"
+      MYSQL_DATABASE: questionnaire_db
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: questionnaire123
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      REDIS_PASSWORD: ""
+      JWT_SECRET: questionnaire-platform-jwt-secret-key-2024
+      H5_BASE_URL: http://localhost:3001/s
+      EXPORT_PATH: /app/exports
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/questionnaire_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    volumes:
+      - export-data:/app/exports
+    depends_on:
+      - mysql
+      - redis
+    restart: on-failure
+
+  frontend:
+    build:
+      context: ./code/前端
+      dockerfile: Dockerfile
+    container_name: questionnaire-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  h5:
+    build:
+      context: ./code/H5
+      dockerfile: Dockerfile
+    container_name: questionnaire-h5
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+
+volumes:
+  mysql-data:
+  redis-data:
+  export-data:

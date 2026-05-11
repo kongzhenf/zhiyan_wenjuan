@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  questionnaire-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: questionnaire-frontend
+    ports:
+      - "3002:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  questionnaire-h5:
+    build:
+      context: ./h5
+      dockerfile: Dockerfile
+    container_name: questionnaire-h5
+    ports:
+      - "3003:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
