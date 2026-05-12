@@ -417,7 +417,7 @@ public class StatisticsServiceImpl implements StatisticsService {
             Map<String, Object> stat = new LinkedHashMap<>();
             stat.put("optionId", option.getId());
             stat.put("content", option.getContent());
-            long count = countMap.getOrDefault(option.getContent(), 0L);
+            long count = countMap.getOrDefault(String.valueOf(option.getId()), 0L);
             stat.put("count", count);
             double percentage = baseCount > 0
                     ? BigDecimal.valueOf((double) count / baseCount * 100)

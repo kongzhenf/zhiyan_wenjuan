@@ -24,12 +24,12 @@
         <div
           v-for="option in question.options"
           :key="option.optionId"
-          :class="['dropdown-option-item', { 'dropdown-option-item--selected': modelValue === option.optionId }]"
-          @click="selectOption(option.optionId)"
+          :class="['dropdown-option-item', { 'dropdown-option-item--selected': modelValue === String(option.optionId) }]"
+          @click="selectOption(String(option.optionId))"
         >
           <span class="dropdown-option-text">{{ option.content }}</span>
           <svg
-            v-if="modelValue === option.optionId"
+            v-if="modelValue === String(option.optionId)"
             class="dropdown-option-check"
             viewBox="0 0 16 16"
             fill="none"
@@ -66,7 +66,7 @@ const showPicker = ref(false)
 
 const selectedLabel = computed(() => {
   if (!props.modelValue || !props.question.options) return ''
-  const found = props.question.options.find(o => o.optionId === props.modelValue)
+  const found = props.question.options.find(o => String(o.optionId) === props.modelValue)
   return found ? found.content : ''
 })
 

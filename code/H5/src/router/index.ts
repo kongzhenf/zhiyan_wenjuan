@@ -4,13 +4,13 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/s/:linkId',
+      path: '/:id',
       name: 'Survey',
       component: () => import('@/views/SurveyPage.vue')
     },
     {
-      path: '/:pathMatch(.*)*',
-      redirect: '/s/not-found'
+      path: '/',
+      redirect: '/not-found'
     }
   ]
 })

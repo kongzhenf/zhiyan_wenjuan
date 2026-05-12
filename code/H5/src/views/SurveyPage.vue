@@ -72,7 +72,7 @@ import QuestionCard from '@/components/QuestionCard.vue'
 const route = useRoute()
 const store = useSurveyStore()
 
-const linkId = computed(() => route.params.linkId as string)
+const linkId = computed(() => route.params.id as string)
 
 const statusPages = ['success', 'closed', 'not-found', 'submitted', 'limit-reached'] as const
 

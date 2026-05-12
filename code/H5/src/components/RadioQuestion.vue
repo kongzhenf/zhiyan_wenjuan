@@ -3,11 +3,11 @@
     <div
       v-for="option in question.options"
       :key="option.optionId"
-      :class="['radio-option', { 'radio-option--selected': modelValue === option.optionId }]"
-      @click="selectOption(option.optionId)"
+      :class="['radio-option', { 'radio-option--selected': modelValue === String(option.optionId) }]"
+      @click="selectOption(String(option.optionId))"
     >
       <div class="radio-indicator">
-        <div v-if="modelValue === option.optionId" class="radio-indicator-dot"></div>
+        <div v-if="modelValue === String(option.optionId)" class="radio-indicator-dot"></div>
       </div>
       <span class="radio-label">{{ option.content }}</span>
     </div>

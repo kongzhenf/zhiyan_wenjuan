@@ -29,8 +29,7 @@ public class FillServiceImpl implements FillService {
     @Override
     @Transactional(readOnly = true)
     public Map<String, Object> getQuestionnaire(String linkId) {
-        Questionnaire questionnaire = questionnaireRepository.findByAccessCodeAndDeletedFalse(linkId)
-                .orElseThrow(() -> new BizException(ErrorCode.H5_QUESTIONNAIRE_NOT_FOUND));
+        Questionnaire questionnaire = findQuestionnaireByLinkId(linkId);
 
         String status = questionnaire.getStatus();
         if ("closed".equals(status)) {
@@ -85,8 +84,7 @@ public class FillServiceImpl implements FillService {
             throw new BizException(ErrorCode.H5_RATE_LIMIT);
         }
 
-        Questionnaire questionnaire = questionnaireRepository.findByAccessCodeAndDeletedFalse(linkId)
-                .orElseThrow(() -> new BizException(ErrorCode.H5_QUESTIONNAIRE_NOT_FOUND));
+        Questionnaire questionnaire = findQuestionnaireByLinkId(linkId);
 
         if (!"active".equals(questionnaire.getStatus())) {
             if ("closed".equals(questionnaire.getStatus())) {
@@ -228,8 +226,7 @@ public class FillServiceImpl implements FillService {
     @Override
     @Transactional(readOnly = true)
     public Map<String, Object> checkStatus(String linkId, String deviceId) {
-        Questionnaire questionnaire = questionnaireRepository.findByAccessCodeAndDeletedFalse(linkId)
-                .orElseThrow(() -> new BizException(ErrorCode.H5_QUESTIONNAIRE_NOT_FOUND));
+        Questionnaire questionnaire = findQuestionnaireByLinkId(linkId);
 
         String status = questionnaire.getStatus();
         boolean fillable = "active".equals(status);
@@ -284,6 +281,17 @@ public class FillServiceImpl implements FillService {
         boolean valid = validOptions.stream().anyMatch(opt -> opt.getId().equals(optionId));
         if (!valid) {
             throw new BizException(ErrorCode.H5_VALIDATION_FAILED, "选项不属于该题目: " + optionId);
+        }
+    }
+
+    private Questionnaire findQuestionnaireByLinkId(String linkId) {
+        try {
+            Long id = Long.parseLong(linkId.trim());
+            return questionnaireRepository.findById(id)
+                    .filter(q -> !Boolean.TRUE.equals(q.getDeleted()))
+                    .orElseThrow(() -> new BizException(ErrorCode.H5_QUESTIONNAIRE_NOT_FOUND));
+        } catch (NumberFormatException e) {
+            throw new BizException(ErrorCode.H5_QUESTIONNAIRE_NOT_FOUND);
         }
     }
 }

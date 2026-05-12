@@ -292,10 +292,8 @@ echo "--- [4/7] 问卷生命周期测试 ---"
 # INT-013: 发布问卷
 RESP=$(api_post "/api/questionnaires/$QID_A/publish" "{\"allowDuplicateDevice\":true}" "Authorization: Bearer $TOKEN")
 assert_success "$RESP" "INT-013: 发布问卷"
-ACCESS_CODE=$(json_get "$RESP" "['result']['link']" | grep -oP '[a-f0-9]{8}$' || echo "")
-# 从DB获取accessCode
-ACCESS_CODE=$(docker exec questionnaire-mysql mysql -uroot -pquestionnaire123 questionnaire_db -N -e "SELECT access_code FROM t_questionnaire WHERE id=$QID_A;" 2>/dev/null | tr -d '\n')
-log_info "Access Code: $ACCESS_CODE"
+ACCESS_CODE=$QID_A
+log_info "Using questionnaire ID as fill path: $ACCESS_CODE"
 
 # INT-013b: 重复发布应失败
 RESP=$(api_post "/api/questionnaires/$QID_A/publish" "{}" "Authorization: Bearer $TOKEN")
@@ -325,7 +323,6 @@ RESP=$(api_put "/api/questionnaires/$QID_B/close" "{}" "Authorization: Bearer $T
 assert_success "$RESP" "INT-014: 关闭问卷"
 
 # INT-008: 删除问卷
-COPY_CODE=$(docker exec questionnaire-mysql mysql -uroot -pquestionnaire123 questionnaire_db -N -e "SELECT access_code FROM t_questionnaire WHERE id=$QID_COPY;" 2>/dev/null | tr -d '\n')
 RESP=$(api_delete "/api/questionnaires/$QID_COPY?confirm=true" "Authorization: Bearer $TOKEN")
 assert_success "$RESP" "INT-008: 删除问卷(confirm=true)"
 
@@ -360,7 +357,7 @@ fi
 RESP=$(api_get "/api/fill/nonexistent-code")
 assert_error_code "$RESP" "4040" "INT-020c: 不存在的问卷返回4040"
 
-CLOSED_CODE=$(docker exec questionnaire-mysql mysql -uroot -pquestionnaire123 questionnaire_db -N -e "SELECT access_code FROM t_questionnaire WHERE id=$QID_B;" 2>/dev/null | tr -d '\n')
+CLOSED_CODE=$QID_B
 RESP=$(api_get "/api/fill/${CLOSED_CODE}")
 CODE=$(json_get "$RESP" "['code']")
 if [ "$CODE" = "4031" ] || [ "$CODE" = "4032" ]; then

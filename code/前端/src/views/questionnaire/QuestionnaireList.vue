@@ -42,6 +42,11 @@
       stripe
       class="data-table"
     >
+      <el-table-column prop="questionnaireId" label="问卷ID" width="100" align="center">
+        <template #default="{ row }">
+          <span class="questionnaire-id">ID：{{ row.questionnaireId }}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="title" label="问卷标题" min-width="200" show-overflow-tooltip />
       <el-table-column prop="status" label="状态" width="100">
         <template #default="{ row }">

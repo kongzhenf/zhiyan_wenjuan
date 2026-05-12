@@ -52,7 +52,7 @@ services:
       REDIS_PORT: "6379"
       REDIS_PASSWORD: ""
       JWT_SECRET: questionnaire-platform-jwt-secret-key-2024
-      H5_BASE_URL: http://localhost:3001/s
+      H5_BASE_URL: http://localhost:3001
       EXPORT_PATH: /app/exports
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/questionnaire_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
     volumes:

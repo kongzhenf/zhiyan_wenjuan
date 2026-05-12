@@ -78,6 +78,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         List<Map<String, Object>> list = pageData.getContent().stream().map(q -> {
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("id", q.getId());
+            map.put("questionnaireId", String.format("%03d", q.getId()));
             map.put("title", q.getTitle());
             map.put("status", q.getStatus());
             map.put("responseCount", responseRepository.countByQuestionnaireId(q.getId()));
@@ -209,10 +210,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         if (type == null || type.isBlank()) {
             throw new BizException(ErrorCode.PARAM_INVALID, "题目类型不能为空");
         }
-        if (title == null || title.isBlank()) {
-            throw new BizException(ErrorCode.PARAM_INVALID, "题干文字不能为空");
-        }
-        if (title.length() > 500) {
+        if (title != null && title.length() > 500) {
             throw new BizException(ErrorCode.PARAM_INVALID, "题干文字不能超过500字符");
         }
 
@@ -253,7 +251,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
             if (title.length() > 500) {
                 throw new BizException(ErrorCode.PARAM_INVALID, "题干文字不能超过500字符");
             }
-            question.setContent(title);
+        question.setContent(title != null ? title : "");
         }
         if (required != null) {
             question.setRequired(required);
@@ -339,6 +337,10 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 
         for (int i = 0; i < questions.size(); i++) {
             Question q = questions.get(i);
+            if (q.getContent() == null || q.getContent().isBlank()) {
+                throw new BizException(ErrorCode.QUESTION_CONFIG_INCOMPLETE,
+                        "第" + (i + 1) + "题题干文字不能为空，请检查后重试");
+            }
             if (isChoiceType(q.getType())) {
                 List<QuestionOption> opts = questionOptionRepository.findByQuestionIdOrderBySortOrderAsc(q.getId());
                 if (opts.size() < 2) {
@@ -361,7 +363,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 
         questionnaire = questionnaireRepository.save(questionnaire);
 
-        String link = h5BaseUrl + "/s/" + questionnaire.getAccessCode();
+        String link = h5BaseUrl + "/" + String.format("%03d", questionnaire.getId());
 
         Map<String, Object> configMap = new LinkedHashMap<>();
         configMap.put("deadline", questionnaire.getDeadline());
@@ -529,7 +531,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         if (size == null || size < 100) size = 300;
         if (size > 1000) size = 1000;
 
-        String link = h5BaseUrl + "/s/" + questionnaire.getAccessCode();
+        String link = h5BaseUrl + "/" + String.format("%03d", questionnaire.getId());
 
         try {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
@@ -555,7 +557,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
             throw new BizException(ErrorCode.NOT_PUBLISHED, "问卷尚未发布，无法获取访问链接");
         }
 
-        String link = h5BaseUrl + "/s/" + questionnaire.getAccessCode();
+        String link = h5BaseUrl + "/" + String.format("%03d", questionnaire.getId());
 
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("link", link);

@@ -3,12 +3,12 @@
     <div
       v-for="option in question.options"
       :key="option.optionId"
-      :class="['checkbox-option', { 'checkbox-option--selected': isSelected(option.optionId) }]"
-      @click="toggleOption(option.optionId)"
+      :class="['checkbox-option', { 'checkbox-option--selected': isSelected(String(option.optionId)) }]"
+      @click="toggleOption(String(option.optionId))"
     >
       <div class="checkbox-indicator">
         <svg
-          v-if="isSelected(option.optionId)"
+          v-if="isSelected(String(option.optionId))"
           class="checkbox-check"
           viewBox="0 0 16 16"
           fill="none"
