@@ -1,0 +1,27 @@
+{
+  "name": "questionnaire-e2e-tests",
+  "version": "1.0.0",
+  "description": "小型问卷调查平台 - 前端功能自动化测试脚本",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --debug",
+    "test:ui": "npx playwright test --ui",
+    "report": "npx playwright show-report",
+    "test:login": "npx playwright test tests/test_login.spec.ts",
+    "test:dashboard": "npx playwright test tests/test_dashboard.spec.ts",
+    "test:questionnaire-list": "npx playwright test tests/test_questionnaire_list.spec.ts",
+    "test:questionnaire-edit": "npx playwright test tests/test_questionnaire_edit.spec.ts",
+    "test:statistics": "npx playwright test tests/test_statistics.spec.ts",
+    "test:h5-fill": "npx playwright test tests/test_h5_fill.spec.ts",
+    "test:auth-api": "npx playwright test tests/test_auth_api.spec.ts",
+    "test:questionnaire-api": "npx playwright test tests/test_questionnaire_api.spec.ts",
+    "test:question-api": "npx playwright test tests/test_question_api.spec.ts",
+    "test:publish-api": "npx playwright test tests/test_publish_api.spec.ts",
+    "test:route-nav": "npx playwright test tests/test_route_nav.spec.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.0",
+    "typescript": "^5.4.0"
+  }
+}

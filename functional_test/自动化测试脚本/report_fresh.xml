@@ -1,0 +1,1170 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="1" failures="45" skipped="3" tests="75" time="4.592" timestamp="2026-05-12T07:27:21.898097+00:00" hostname="3796f7958b47"><testcase classname="test_auth.TestAuthLogin" name="test_tc_auth_001" time="0.089" /><testcase classname="test_auth.TestAuthLogin" name="test_tc_auth_002" time="0.090" /><testcase classname="test_auth.TestAuthLogin" name="test_tc_auth_003" time="0.085" /><testcase classname="test_auth.TestAuthLoginValidation" name="test_tc_auth_004" time="0.005" /><testcase classname="test_auth.TestAuthLoginValidation" name="test_tc_auth_005" time="0.003" /><testcase classname="test_auth.TestAuthLoginValidation" name="test_tc_auth_006" time="0.003" /><testcase classname="test_auth.TestAuthLoginFailure" name="test_tc_auth_007" time="0.083"><failure message="AssertionError: 密码错误期望401, 实际200&#10;assert 200 == 401&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_auth.TestAuthLoginFailure object at 0x7f4ce7ddc450&gt;
+
+    def test_tc_auth_007(self):
+        resp = _login(username=ADMIN_USERNAME, password="wrongpassword")
+&gt;       assert resp.status_code == 401, f"密码错误期望401, 实际{resp.status_code}"
+E       AssertionError: 密码错误期望401, 实际200
+E       assert 200 == 401
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_auth.py:87: AssertionError</failure></testcase><testcase classname="test_auth.TestAuthLoginFailure" name="test_tc_auth_008" time="0.007"><failure message="AssertionError: 用户名不存在期望401, 实际200&#10;assert 200 == 401&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_auth.TestAuthLoginFailure object at 0x7f4ce7ddca90&gt;
+
+    def test_tc_auth_008(self):
+        resp = _login(username="nonexistentuser", password=ADMIN_PASSWORD)
+&gt;       assert resp.status_code == 401, f"用户名不存在期望401, 实际{resp.status_code}"
+E       AssertionError: 用户名不存在期望401, 实际200
+E       assert 200 == 401
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_auth.py:97: AssertionError</failure></testcase><testcase classname="test_auth.TestAuthAccountLock" name="test_tc_auth_009" time="0.000"><skipped type="pytest.skip" message="会导致admin账号锁定10分钟，影响其他测试">/data/documents/2052921194065797121/functional_test/自动化测试脚本/test_auth.py:105: 会导致admin账号锁定10分钟，影响其他测试</skipped></testcase><testcase classname="test_auth.TestAuthAccountLock" name="test_tc_auth_010" time="0.000"><skipped type="pytest.skip" message="需要等待10分钟，仅手动执行">/data/documents/2052921194065797121/functional_test/自动化测试脚本/test_auth.py:116: 需要等待10分钟，仅手动执行</skipped></testcase><testcase classname="test_auth.TestAuthTokenRefresh" name="test_tc_auth_011" time="0.090" /><testcase classname="test_auth.TestAuthTokenRefresh" name="test_tc_auth_012" time="0.004"><failure message="AssertionError: 无效refreshToken期望401, 实际200&#10;assert 200 == 401&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_auth.TestAuthTokenRefresh object at 0x7f4ce7dde7d0&gt;
+
+    def test_tc_auth_012(self):
+        resp = requests.post(
+            Endpoints.AUTH_REFRESH,
+            json={"refreshToken": "invalid_refresh_token_string_12345"},
+            timeout=REQUEST_TIMEOUT,
+        )
+&gt;       assert resp.status_code == 401, f"无效refreshToken期望401, 实际{resp.status_code}"
+E       AssertionError: 无效refreshToken期望401, 实际200
+E       assert 200 == 401
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_auth.py:154: AssertionError</failure></testcase><testcase classname="test_auth.TestAuthTokenRefresh" name="test_tc_auth_013" time="0.004" /><testcase classname="test_auth.TestAuthLogout" name="test_tc_auth_014" time="0.089" /><testcase classname="test_auth.TestAuthLogout" name="test_tc_auth_015" time="0.090" /><testcase classname="test_auth.TestAuthJWT" name="test_tc_auth_016" time="0.002" /><testcase classname="test_auth.TestAuthJWT" name="test_tc_auth_017" time="0.002" /><testcase classname="test_auth.TestAuthJWT" name="test_tc_auth_018" time="0.094" /><testcase classname="test_questionnaire.TestCreateQuestionnaire" name="test_tc_qn_001" time="0.110" /><testcase classname="test_questionnaire.TestCreateQuestionnaire" name="test_tc_qn_002" time="0.006"><failure message="assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_questionnaire.TestCreateQuestionnaire object at 0x7f4ce7b02fd0&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def test_tc_qn_002(self, auth_headers):
+        resp = requests.post(
+            Endpoints.QUESTIONNAIRES,
+            headers=auth_headers,
+            json={"title": "", "description": "测试描述"},
+            timeout=REQUEST_TIMEOUT,
+        )
+        data = resp.json()
+&gt;       assert resp.status_code == 400
+E       assert 200 == 400
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_questionnaire.py:40: AssertionError</failure></testcase><testcase classname="test_questionnaire.TestCreateQuestionnaire" name="test_tc_qn_003" time="0.007"><failure message="assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_questionnaire.TestCreateQuestionnaire object at 0x7f4ce7b03650&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def test_tc_qn_003(self, auth_headers):
+        title = "测" * 101
+        resp = requests.post(
+            Endpoints.QUESTIONNAIRES,
+            headers=auth_headers,
+            json={"title": title, "description": "超长标题测试"},
+            timeout=REQUEST_TIMEOUT,
+        )
+        data = resp.json()
+&gt;       assert resp.status_code == 400
+E       assert 200 == 400
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_questionnaire.py:52: AssertionError</failure></testcase><testcase classname="test_questionnaire.TestCreateQuestionnaire" name="test_tc_qn_004" time="0.025" /><testcase classname="test_questionnaire.TestListQuestionnaire" name="test_tc_qn_005" time="0.015"><failure message="AssertionError: assert 'page' in {'list': [{'createdAt': '2026-05-12T07:27:08', 'id': 104, 'questionnaireId': '104', 'responseCount': 0, ...}, {'createdAt': '2026-05-12T07:27:08', 'id': 105, 'questionnaireId': '105', 'responseCount': 0, ...}, {'createdAt': '2026-05-12T03:32:01', 'id': 71, 'questionnaireId': '071', 'responseCount': 0, ...}, {'createdAt': '2026-05-12T03:32:01', 'id': 72, 'questionnaireId': '072', 'responseCount': 0, ...}, {'createdAt': '2026-05-11T11:29:32', 'id': 8, 'questionnaireId': '008', 'responseCount': 0, ...}, {'createdAt': '2026-05-11T08:44:02', 'id': 7, 'questionnaireId': '007', 'responseCount': 0, ...}, ...], 'pagination': {'page': 1, 'pageSize': 20, 'total': 12, 'totalPages': 1}}">self = &lt;test_questionnaire.TestListQuestionnaire object at 0x7f4ce7b18590&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def test_tc_qn_005(self, auth_headers):
+        resp = requests.get(
+            Endpoints.QUESTIONNAIRES,
+            headers=auth_headers,
+            timeout=REQUEST_TIMEOUT,
+        )
+        data = resp.json()
+        assert resp.status_code == 200
+        result = data["result"]
+&gt;       assert "page" in result
+E       AssertionError: assert 'page' in {'list': [{'createdAt': '2026-05-12T07:27:08', 'id': 104, 'questionnaireId': '104', 'responseCount': 0, ...}, {'createdAt': '2026-05-12T07:27:08', 'id': 105, 'questionnaireId': '105', 'responseCount': 0, ...}, {'createdAt': '2026-05-12T03:32:01', 'id': 71, 'questionnaireId': '071', 'responseCount': 0, ...}, {'createdAt': '2026-05-12T03:32:01', 'id': 72, 'questionnaireId': '072', 'responseCount': 0, ...}, {'createdAt': '2026-05-11T11:29:32', 'id': 8, 'questionnaireId': '008', 'responseCount': 0, ...}, {'createdAt': '2026-05-11T08:44:02', 'id': 7, 'questionnaireId': '007', 'responseCount': 0, ...}, ...], 'pagination': {'page': 1, 'pageSize': 20, 'total': 12, 'totalPages': 1}}
+
+test_questionnaire.py:86: AssertionError</failure></testcase><testcase classname="test_questionnaire.TestListQuestionnaire" name="test_tc_qn_006" time="0.035" /><testcase classname="test_questionnaire.TestListQuestionnaire" name="test_tc_qn_007" time="0.030" /><testcase classname="test_questionnaire.TestListQuestionnaire" name="test_tc_qn_008" time="0.014" /><testcase classname="test_questionnaire.TestListQuestionnaire" name="test_tc_qn_009" time="0.010"><failure message="KeyError: 'page'">self = &lt;test_questionnaire.TestListQuestionnaire object at 0x7f4ce7b1a050&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def test_tc_qn_009(self, auth_headers):
+        resp = requests.get(
+            Endpoints.QUESTIONNAIRES,
+            headers=auth_headers,
+            params={"page": 2, "pageSize": 5},
+            timeout=REQUEST_TIMEOUT,
+        )
+        data = resp.json()
+        assert resp.status_code == 200
+        result = data["result"]
+&gt;       assert result["page"] == 2
+               ^^^^^^^^^^^^^^
+E       KeyError: 'page'
+
+test_questionnaire.py:143: KeyError</failure></testcase><testcase classname="test_questionnaire.TestGetQuestionnaire" name="test_tc_qn_010" time="0.032" /><testcase classname="test_questionnaire.TestGetQuestionnaire" name="test_tc_qn_011" time="0.007"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_questionnaire.TestGetQuestionnaire object at 0x7f4ce7b1a550&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def test_tc_qn_011(self, auth_headers):
+        resp = requests.get(
+            Endpoints.questionnaire_detail(999999999),
+            headers=auth_headers,
+            timeout=REQUEST_TIMEOUT,
+        )
+        data = resp.json()
+&gt;       assert resp.status_code == 404
+E       assert 200 == 404
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_questionnaire.py:173: AssertionError</failure></testcase><testcase classname="test_questionnaire.TestUpdateQuestionnaire" name="test_tc_qn_012" time="0.044" /><testcase classname="test_questionnaire.TestUpdateQuestionnaire" name="test_tc_qn_013" time="0.031"><failure message="assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_questionnaire.TestUpdateQuestionnaire object at 0x7f4ce7b1ad90&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7ba6340&gt;
+
+    def test_tc_qn_013(self, auth_headers, create_questionnaire):
+        qid = create_questionnaire("空标题更新测试", "测试描述")
+        resp = requests.put(
+            Endpoints.questionnaire_detail(qid),
+            headers=auth_headers,
+            json={"title": "", "description": "更新描述"},
+            timeout=REQUEST_TIMEOUT,
+        )
+        data = resp.json()
+&gt;       assert resp.status_code == 400
+E       assert 200 == 400
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_questionnaire.py:207: AssertionError</failure></testcase><testcase classname="test_questionnaire.TestUpdateQuestionnaire" name="test_tc_qn_014" time="0.008"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_questionnaire.TestUpdateQuestionnaire object at 0x7f4ce7b1b110&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def test_tc_qn_014(self, auth_headers):
+        resp = requests.put(
+            Endpoints.questionnaire_detail(999999999),
+            headers=auth_headers,
+            json={"title": "不存在的问卷", "description": "测试"},
+            timeout=REQUEST_TIMEOUT,
+        )
+        data = resp.json()
+&gt;       assert resp.status_code == 404
+E       assert 200 == 404
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_questionnaire.py:218: AssertionError</failure></testcase><testcase classname="test_questionnaire.TestDeleteQuestionnaire" name="test_tc_qn_015" time="0.039"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_questionnaire.TestDeleteQuestionnaire object at 0x7f4ce7b1b790&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7ba7560&gt;
+
+    def test_tc_qn_015(self, auth_headers, create_questionnaire):
+        qid = create_questionnaire("删除测试问卷", "无回收数据删除")
+        resp = requests.delete(
+            Endpoints.questionnaire_detail(qid),
+            headers=auth_headers,
+            params={"confirm": "false"},
+            timeout=REQUEST_TIMEOUT,
+        )
+        assert resp.status_code == 200
+    
+        get_resp = requests.get(
+            Endpoints.questionnaire_detail(qid),
+            headers=auth_headers,
+            timeout=REQUEST_TIMEOUT,
+        )
+&gt;       assert get_resp.status_code == 404
+E       assert 200 == 404
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_questionnaire.py:239: AssertionError</failure></testcase><testcase classname="test_questionnaire.TestDeleteQuestionnaire" name="test_tc_qn_016" time="0.019"><failure message="KeyError: 'result'">self = &lt;test_questionnaire.TestDeleteQuestionnaire object at 0x7f4ce7b1be10&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def test_tc_qn_016(self, auth_headers):
+&gt;       qid = self._create_questionnaire_with_response(auth_headers)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_questionnaire.py:321: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;test_questionnaire.TestDeleteQuestionnaire object at 0x7f4ce7b1be10&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def _create_questionnaire_with_response(self, auth_headers):
+        create_resp = requests.post(
+            Endpoints.QUESTIONNAIRES,
+            headers=auth_headers,
+            json={"title": "有回收数据的问卷", "description": "删除测试"},
+            timeout=REQUEST_TIMEOUT,
+        )
+        assert create_resp.status_code == 200
+        qid = create_resp.json()["result"]["id"]
+    
+        q_resp = requests.post(
+            Endpoints.questionnaire_questions(qid),
+            headers=auth_headers,
+            json={
+                "type": "radio",
+                "title": "测试单选题",
+                "required": True,
+                "options": [{"content": "选项A"}, {"content": "选项B"}],
+            },
+            timeout=REQUEST_TIMEOUT,
+        )
+        assert q_resp.status_code == 200
+&gt;       question_id = q_resp.json()["result"]["id"]
+                      ^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'result'
+
+test_questionnaire.py:263: KeyError</failure></testcase><testcase classname="test_questionnaire.TestDeleteQuestionnaire" name="test_tc_qn_017" time="0.020"><failure message="KeyError: 'result'">self = &lt;test_questionnaire.TestDeleteQuestionnaire object at 0x7f4ce7b1c4d0&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def test_tc_qn_017(self, auth_headers):
+&gt;       qid = self._create_questionnaire_with_response(auth_headers)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_questionnaire.py:341: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;test_questionnaire.TestDeleteQuestionnaire object at 0x7f4ce7b1c4d0&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def _create_questionnaire_with_response(self, auth_headers):
+        create_resp = requests.post(
+            Endpoints.QUESTIONNAIRES,
+            headers=auth_headers,
+            json={"title": "有回收数据的问卷", "description": "删除测试"},
+            timeout=REQUEST_TIMEOUT,
+        )
+        assert create_resp.status_code == 200
+        qid = create_resp.json()["result"]["id"]
+    
+        q_resp = requests.post(
+            Endpoints.questionnaire_questions(qid),
+            headers=auth_headers,
+            json={
+                "type": "radio",
+                "title": "测试单选题",
+                "required": True,
+                "options": [{"content": "选项A"}, {"content": "选项B"}],
+            },
+            timeout=REQUEST_TIMEOUT,
+        )
+        assert q_resp.status_code == 200
+&gt;       question_id = q_resp.json()["result"]["id"]
+                      ^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'result'
+
+test_questionnaire.py:263: KeyError</failure></testcase><testcase classname="test_questionnaire.TestDeleteQuestionnaire" name="test_tc_qn_018" time="0.008"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_questionnaire.TestDeleteQuestionnaire object at 0x7f4ce7b1cb90&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def test_tc_qn_018(self, auth_headers):
+        resp = requests.delete(
+            Endpoints.questionnaire_detail(999999999),
+            headers=auth_headers,
+            params={"confirm": "false"},
+            timeout=REQUEST_TIMEOUT,
+        )
+        data = resp.json()
+&gt;       assert resp.status_code == 404
+E       assert 200 == 404
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_questionnaire.py:365: AssertionError</failure></testcase><testcase classname="test_questionnaire.TestCopyQuestionnaire" name="test_tc_qn_019" time="0.033"><failure message="KeyError: 'result'">self = &lt;test_questionnaire.TestCopyQuestionnaire object at 0x7f4ce7b1d490&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire_with_questions = &lt;function create_questionnaire_with_questions.&lt;locals&gt;._create at 0x7f4ce7a98220&gt;
+
+    def test_tc_qn_019(self, auth_headers, create_questionnaire_with_questions):
+&gt;       qid, _ = create_questionnaire_with_questions()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_questionnaire.py:372: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _create():
+        qid = create_questionnaire("含题目的测试问卷", "带题目的自动化测试问卷")
+        questions = [
+            {
+                "type": "radio",
+                "title": "单选测试题",
+                "required": True,
+                "options": [{"content": "选项A"}, {"content": "选项B"}, {"content": "选项C"}]
+            },
+            {
+                "type": "checkbox",
+                "title": "多选测试题",
+                "required": False,
+                "options": [{"content": "多选A"}, {"content": "多选B"}, {"content": "多选C"}]
+            },
+            {
+                "type": "input",
+                "title": "填空测试题",
+                "required": False
+            }
+        ]
+        question_ids = []
+        for q in questions:
+            resp = requests.post(
+                Endpoints.questionnaire_questions(qid),
+                headers=auth_headers,
+                json=q,
+                timeout=REQUEST_TIMEOUT
+            )
+            assert resp.status_code == 200, f"Add question failed: {resp.text}"
+&gt;           question_ids.append(resp.json()["result"]["id"])
+                                ^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'result'
+
+conftest.py:112: KeyError</failure></testcase><testcase classname="test_questionnaire.TestCopyQuestionnaire" name="test_tc_qn_020" time="0.007"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_questionnaire.TestCopyQuestionnaire object at 0x7f4ce7b1db10&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def test_tc_qn_020(self, auth_headers):
+        resp = requests.post(
+            Endpoints.questionnaire_copy(999999999),
+            headers=auth_headers,
+            json={},
+            timeout=REQUEST_TIMEOUT,
+        )
+        data = resp.json()
+&gt;       assert resp.status_code == 404
+E       assert 200 == 404
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_questionnaire.py:399: AssertionError</failure></testcase><testcase classname="test_questionnaire.TestDraftQuestionnaire" name="test_tc_qn_021" time="0.039"><failure message="assert 500 == 200&#10; +  where 500 = &lt;Response [500]&gt;.status_code">self = &lt;test_questionnaire.TestDraftQuestionnaire object at 0x7f4ce7b1e3d0&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a98720&gt;
+
+    def test_tc_qn_021(self, auth_headers, create_questionnaire):
+        qid = create_questionnaire("草稿保存测试", "含题目的草稿保存")
+        questions = [
+            {
+                "type": "radio",
+                "title": "草稿单选题",
+                "required": True,
+                "options": [{"content": "选项1"}, {"content": "选项2"}],
+            },
+            {
+                "type": "input",
+                "title": "草稿填空题",
+                "required": False,
+            },
+        ]
+        resp = requests.put(
+            Endpoints.questionnaire_draft(qid),
+            headers=auth_headers,
+            json={"title": "草稿保存测试", "description": "含题目的草稿保存", "questions": questions},
+            timeout=REQUEST_TIMEOUT,
+        )
+&gt;       assert resp.status_code == 200
+E       assert 500 == 200
+E        +  where 500 = &lt;Response [500]&gt;.status_code
+
+test_questionnaire.py:426: AssertionError</failure></testcase><testcase classname="test_questionnaire.TestDraftQuestionnaire" name="test_tc_qn_022" time="0.032"><failure message="KeyError: 'result'">self = &lt;test_questionnaire.TestDraftQuestionnaire object at 0x7f4ce7b1ea90&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire_with_questions = &lt;function create_questionnaire_with_questions.&lt;locals&gt;._create at 0x7f4ce7a985e0&gt;
+
+    def test_tc_qn_022(self, auth_headers, create_questionnaire_with_questions):
+&gt;       qid, _ = create_questionnaire_with_questions()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_questionnaire.py:437: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _create():
+        qid = create_questionnaire("含题目的测试问卷", "带题目的自动化测试问卷")
+        questions = [
+            {
+                "type": "radio",
+                "title": "单选测试题",
+                "required": True,
+                "options": [{"content": "选项A"}, {"content": "选项B"}, {"content": "选项C"}]
+            },
+            {
+                "type": "checkbox",
+                "title": "多选测试题",
+                "required": False,
+                "options": [{"content": "多选A"}, {"content": "多选B"}, {"content": "多选C"}]
+            },
+            {
+                "type": "input",
+                "title": "填空测试题",
+                "required": False
+            }
+        ]
+        question_ids = []
+        for q in questions:
+            resp = requests.post(
+                Endpoints.questionnaire_questions(qid),
+                headers=auth_headers,
+                json=q,
+                timeout=REQUEST_TIMEOUT
+            )
+            assert resp.status_code == 200, f"Add question failed: {resp.text}"
+&gt;           question_ids.append(resp.json()["result"]["id"])
+                                ^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'result'
+
+conftest.py:112: KeyError</failure></testcase><testcase classname="test_questionnaire.TestDraftQuestionnaire" name="test_tc_qn_023" time="0.007"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_questionnaire.TestDraftQuestionnaire object at 0x7f4ce7b1f110&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def test_tc_qn_023(self, auth_headers):
+        resp = requests.put(
+            Endpoints.questionnaire_draft(999999999),
+            headers=auth_headers,
+            json={"title": "不存在", "description": "不存在", "questions": []},
+            timeout=REQUEST_TIMEOUT,
+        )
+        data = resp.json()
+&gt;       assert resp.status_code == 404
+E       assert 200 == 404
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_questionnaire.py:465: AssertionError</failure></testcase><testcase classname="test_questionnaire.TestDraftQuestionnaire" name="test_tc_qn_024" time="0.032" /><testcase classname="test_questionnaire.TestPreviewQuestionnaire" name="test_tc_qn_025" time="0.037"><failure message="KeyError: 'result'">self = &lt;test_questionnaire.TestPreviewQuestionnaire object at 0x7f4ce7b24190&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire_with_questions = &lt;function create_questionnaire_with_questions.&lt;locals&gt;._create at 0x7f4ce7a989a0&gt;
+
+    def test_tc_qn_025(self, auth_headers, create_questionnaire_with_questions):
+&gt;       qid, _ = create_questionnaire_with_questions()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_questionnaire.py:482: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _create():
+        qid = create_questionnaire("含题目的测试问卷", "带题目的自动化测试问卷")
+        questions = [
+            {
+                "type": "radio",
+                "title": "单选测试题",
+                "required": True,
+                "options": [{"content": "选项A"}, {"content": "选项B"}, {"content": "选项C"}]
+            },
+            {
+                "type": "checkbox",
+                "title": "多选测试题",
+                "required": False,
+                "options": [{"content": "多选A"}, {"content": "多选B"}, {"content": "多选C"}]
+            },
+            {
+                "type": "input",
+                "title": "填空测试题",
+                "required": False
+            }
+        ]
+        question_ids = []
+        for q in questions:
+            resp = requests.post(
+                Endpoints.questionnaire_questions(qid),
+                headers=auth_headers,
+                json=q,
+                timeout=REQUEST_TIMEOUT
+            )
+            assert resp.status_code == 200, f"Add question failed: {resp.text}"
+&gt;           question_ids.append(resp.json()["result"]["id"])
+                                ^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'result'
+
+conftest.py:112: KeyError</failure></testcase><testcase classname="test_questionnaire.TestPreviewQuestionnaire" name="test_tc_qn_026" time="0.008"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_questionnaire.TestPreviewQuestionnaire object at 0x7f4ce7b1dd10&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def test_tc_qn_026(self, auth_headers):
+        resp = requests.get(
+            Endpoints.questionnaire_preview(999999999),
+            headers=auth_headers,
+            timeout=REQUEST_TIMEOUT,
+        )
+        data = resp.json()
+&gt;       assert resp.status_code == 404
+E       assert 200 == 404
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_questionnaire.py:503: AssertionError</failure></testcase><testcase classname="test_questionnaire.TestAuthRequired" name="test_tc_qn_027" time="0.003" /><testcase classname="test_questionnaire.TestAuthRequired" name="test_tc_qn_028" time="0.003" /><testcase classname="test_question.TestAddQuestion" name="test_tc_qs_001" time="0.036"><failure message="KeyError: 'result'">self = &lt;test_question.TestAddQuestion object at 0x7f4ce7b26690&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a99300&gt;
+
+    def test_tc_qs_001(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        resp = _add_question(auth_headers, qnr_id, {
+            "type": "radio",
+            "title": "您的性别是？",
+            "required": True,
+            "options": [
+                {"content": "男"},
+                {"content": "女"},
+                {"content": "保密"},
+            ],
+        })
+        assert resp.status_code == 200, f"期望200, 实际{resp.status_code}: {resp.text}"
+        data = resp.json()
+&gt;       result = data["result"]
+                 ^^^^^^^^^^^^^^
+E       KeyError: 'result'
+
+test_question.py:49: KeyError</failure></testcase><testcase classname="test_question.TestAddQuestion" name="test_tc_qs_002" time="0.032"><failure message="KeyError: 'result'">self = &lt;test_question.TestAddQuestion object at 0x7f4ce7b26c10&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a996c0&gt;
+
+    def test_tc_qs_002(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        resp = _add_question(auth_headers, qnr_id, {
+            "type": "checkbox",
+            "title": "您喜欢以下哪些编程语言？（至少选2项，最多选4项）",
+            "required": True,
+            "options": [
+                {"content": "Java"},
+                {"content": "Python"},
+                {"content": "JavaScript"},
+                {"content": "Go"},
+                {"content": "Rust"},
+            ],
+            "config": {"minSelect": 2, "maxSelect": 4},
+        })
+        assert resp.status_code == 200, f"期望200, 实际{resp.status_code}: {resp.text}"
+&gt;       result = resp.json()["result"]
+                 ^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'result'
+
+test_question.py:79: KeyError</failure></testcase><testcase classname="test_question.TestAddQuestion" name="test_tc_qs_003" time="0.052" /><testcase classname="test_question.TestAddQuestion" name="test_tc_qs_004" time="0.045"><failure message="KeyError: 'config'">self = &lt;test_question.TestAddQuestion object at 0x7f4ce7b279d0&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a99bc0&gt;
+
+    def test_tc_qs_004(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        resp = _add_question(auth_headers, qnr_id, {
+            "type": "rating",
+            "title": "请对本次服务进行评分",
+            "required": True,
+        })
+        assert resp.status_code == 200, f"期望200, 实际{resp.status_code}: {resp.text}"
+        result = resp.json()["result"]
+        assert result["type"] == "rating"
+        assert result["title"] == "请对本次服务进行评分"
+&gt;       assert result["config"]["maxRating"] == 5
+               ^^^^^^^^^^^^^^^^
+E       KeyError: 'config'
+
+test_question.py:112: KeyError</failure></testcase><testcase classname="test_question.TestAddQuestion" name="test_tc_qs_005" time="0.032"><failure message="KeyError: 'result'">self = &lt;test_question.TestAddQuestion object at 0x7f4ce7b300d0&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a99c60&gt;
+
+    def test_tc_qs_005(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        resp = _add_question(auth_headers, qnr_id, {
+            "type": "dropdown",
+            "title": "请选择您所在的城市",
+            "required": True,
+            "options": [
+                {"content": "北京"},
+                {"content": "上海"},
+                {"content": "广州"},
+                {"content": "深圳"},
+            ],
+        })
+        assert resp.status_code == 200, f"期望200, 实际{resp.status_code}: {resp.text}"
+&gt;       result = resp.json()["result"]
+                 ^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'result'
+
+test_question.py:128: KeyError</failure></testcase><testcase classname="test_question.TestAddQuestion" name="test_tc_qs_006" time="0.007"><failure message="AssertionError: 期望404, 实际200: {&quot;success&quot;:false,&quot;code&quot;:404001,&quot;message&quot;:&quot;问卷不存在&quot;}&#10;assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_question.TestAddQuestion object at 0x7f4ce7b30750&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+
+    def test_tc_qs_006(self, auth_headers):
+        resp = _add_question(auth_headers, 999999, {
+            "type": "radio",
+            "title": "测试题目",
+            "required": True,
+            "options": [
+                {"content": "选项A"},
+                {"content": "选项B"},
+            ],
+        })
+&gt;       assert resp.status_code == 404, f"期望404, 实际{resp.status_code}: {resp.text}"
+E       AssertionError: 期望404, 实际200: {"success":false,"code":404001,"message":"问卷不存在"}
+E       assert 200 == 404
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_question.py:145: AssertionError</failure></testcase><testcase classname="test_question.TestUpdateQuestion" name="test_tc_qs_007" time="0.038"><failure message="KeyError: 'result'">self = &lt;test_question.TestUpdateQuestion object at 0x7f4ce7b31150&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7ba6de0&gt;
+
+    def test_tc_qs_007(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        add_resp = _add_question(auth_headers, qnr_id, {
+            "type": "radio",
+            "title": "您的性别是？",
+            "required": True,
+            "options": [
+                {"content": "男"},
+                {"content": "女"},
+                {"content": "保密"},
+            ],
+        })
+        assert add_resp.status_code == 200
+&gt;       q_id = add_resp.json()["result"]["id"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'result'
+
+test_question.py:165: KeyError</failure></testcase><testcase classname="test_question.TestUpdateQuestion" name="test_tc_qs_008" time="0.034"><failure message="KeyError: 'result'">self = &lt;test_question.TestUpdateQuestion object at 0x7f4ce7b31810&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7ba5800&gt;
+
+    def test_tc_qs_008(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        add_resp = _add_question(auth_headers, qnr_id, {
+            "type": "checkbox",
+            "title": "您喜欢以下哪些编程语言？（至少选2项，最多选4项）",
+            "required": True,
+            "options": [
+                {"content": "Java"},
+                {"content": "Python"},
+                {"content": "JavaScript"},
+                {"content": "Go"},
+                {"content": "Rust"},
+            ],
+            "config": {"minSelect": 2, "maxSelect": 4},
+        })
+        assert add_resp.status_code == 200
+&gt;       q_id = add_resp.json()["result"]["id"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'result'
+
+test_question.py:208: KeyError</failure></testcase><testcase classname="test_question.TestUpdateQuestion" name="test_tc_qs_009" time="0.033"><failure message="AssertionError: 期望404, 实际200: {&quot;success&quot;:false,&quot;code&quot;:404002,&quot;message&quot;:&quot;题目不存在&quot;}&#10;assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_question.TestUpdateQuestion object at 0x7f4ce7b31ed0&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a99a80&gt;
+
+    def test_tc_qs_009(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        resp = requests.put(
+            Endpoints.questionnaire_question_detail(qnr_id, 999999),
+            headers=auth_headers,
+            json={"title": "不存在的题目", "required": True},
+            timeout=REQUEST_TIMEOUT,
+        )
+&gt;       assert resp.status_code == 404, f"期望404, 实际{resp.status_code}: {resp.text}"
+E       AssertionError: 期望404, 实际200: {"success":false,"code":404002,"message":"题目不存在"}
+E       assert 200 == 404
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_question.py:242: AssertionError</failure></testcase><testcase classname="test_question.TestDeleteQuestion" name="test_tc_qs_010" time="0.030"><failure message="KeyError: 'result'">self = &lt;test_question.TestDeleteQuestion object at 0x7f4ce7b26a10&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a993a0&gt;
+
+    def test_tc_qs_010(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        add_resp = _add_question(auth_headers, qnr_id, {
+            "type": "radio",
+            "title": "待删除题目",
+            "required": True,
+            "options": [
+                {"content": "选项A"},
+                {"content": "选项B"},
+            ],
+        })
+        assert add_resp.status_code == 200
+&gt;       q_id = add_resp.json()["result"]["id"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'result'
+
+test_question.py:260: KeyError</failure></testcase><testcase classname="test_question.TestDeleteQuestion" name="test_tc_qs_011" time="0.031"><failure message="AssertionError: 期望404, 实际200: {&quot;success&quot;:false,&quot;code&quot;:404002,&quot;message&quot;:&quot;题目不存在&quot;}&#10;assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_question.TestDeleteQuestion object at 0x7f4ce7b26d90&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a98ea0&gt;
+
+    def test_tc_qs_011(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        resp = requests.delete(
+            Endpoints.questionnaire_question_detail(qnr_id, 999999),
+            headers=auth_headers,
+            timeout=REQUEST_TIMEOUT,
+        )
+&gt;       assert resp.status_code == 404, f"期望404, 实际{resp.status_code}: {resp.text}"
+E       AssertionError: 期望404, 实际200: {"success":false,"code":404002,"message":"题目不存在"}
+E       assert 200 == 404
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_question.py:280: AssertionError</failure></testcase><testcase classname="test_question.TestSortQuestions" name="test_tc_qs_012" time="0.099" /><testcase classname="test_question.TestSortQuestions" name="test_tc_qs_013" time="0.079"><failure message="AssertionError: 期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400004,&quot;message&quot;:&quot;题目ID列表与实际题目不匹配&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_question.TestSortQuestions object at 0x7f4ce7b32390&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a9a200&gt;
+
+    def test_tc_qs_013(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        q1, q2, q3 = self._create_3_questions(auth_headers, qnr_id)
+    
+        resp = requests.put(
+            Endpoints.questionnaire_questions_sort(qnr_id),
+            headers=auth_headers,
+            json={"questionIds": [q1, q2]},
+            timeout=REQUEST_TIMEOUT,
+        )
+&gt;       assert resp.status_code == 400, f"期望400, 实际{resp.status_code}: {resp.text}"
+E       AssertionError: 期望400, 实际200: {"success":false,"code":400004,"message":"题目ID列表与实际题目不匹配"}
+E       assert 200 == 400
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_question.py:320: AssertionError</failure></testcase><testcase classname="test_question.TestSortQuestions" name="test_tc_qs_014" time="0.059"><failure message="AssertionError: 期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400004,&quot;message&quot;:&quot;题目ID列表与实际题目不匹配&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_question.TestSortQuestions object at 0x7f4ce7b313d0&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a98540&gt;
+
+    def test_tc_qs_014(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        q1_resp = _add_simple_input(auth_headers, qnr_id, "排序题1")
+        q2_resp = _add_simple_input(auth_headers, qnr_id, "排序题2")
+        assert q1_resp.status_code == 200
+        assert q2_resp.status_code == 200
+        q1 = q1_resp.json()["result"]["id"]
+        q2 = q2_resp.json()["result"]["id"]
+    
+        resp = requests.put(
+            Endpoints.questionnaire_questions_sort(qnr_id),
+            headers=auth_headers,
+            json={"questionIds": [q1, q2, 999999]},
+            timeout=REQUEST_TIMEOUT,
+        )
+&gt;       assert resp.status_code == 400, f"期望400, 实际{resp.status_code}: {resp.text}"
+E       AssertionError: 期望400, 实际200: {"success":false,"code":400004,"message":"题目ID列表与实际题目不匹配"}
+E       assert 200 == 400
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_question.py:338: AssertionError</failure></testcase><testcase classname="test_question.TestOptionCountValidation" name="test_tc_qs_015" time="0.037"><failure message="AssertionError: 期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400002,&quot;message&quot;:&quot;选择题选项至少需要2项&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_question.TestOptionCountValidation object at 0x7f4ce7b32650&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a98ea0&gt;
+
+    def test_tc_qs_015(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        resp = _add_question(auth_headers, qnr_id, {
+            "type": "radio",
+            "title": "只有一个选项的单选题",
+            "required": True,
+            "options": [{"content": "唯一选项"}],
+        })
+&gt;       assert resp.status_code == 400, f"期望400, 实际{resp.status_code}: {resp.text}"
+E       AssertionError: 期望400, 实际200: {"success":false,"code":400002,"message":"选择题选项至少需要2项"}
+E       assert 200 == 400
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_question.py:352: AssertionError</failure></testcase><testcase classname="test_question.TestOptionCountValidation" name="test_tc_qs_016" time="0.033"><failure message="AssertionError: 期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400002,&quot;message&quot;:&quot;选择题选项最多20项&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_question.TestOptionCountValidation object at 0x7f4ce7b32b90&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a9a3e0&gt;
+
+    def test_tc_qs_016(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        options = [{"content": f"选项{i}"} for i in range(1, 22)]
+        resp = _add_question(auth_headers, qnr_id, {
+            "type": "checkbox",
+            "title": "选项过多的多选题",
+            "required": True,
+            "options": options,
+        })
+&gt;       assert resp.status_code == 400, f"期望400, 实际{resp.status_code}: {resp.text}"
+E       AssertionError: 期望400, 实际200: {"success":false,"code":400002,"message":"选择题选项最多20项"}
+E       assert 200 == 400
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_question.py:364: AssertionError</failure></testcase><testcase classname="test_question.TestOptionCountValidation" name="test_tc_qs_017" time="0.030"><failure message="KeyError: 'result'">self = &lt;test_question.TestOptionCountValidation object at 0x7f4ce7b33250&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a98540&gt;
+
+    def test_tc_qs_017(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        resp = _add_question(auth_headers, qnr_id, {
+            "type": "radio",
+            "title": "恰好两个选项的单选题",
+            "required": True,
+            "options": [
+                {"content": "是"},
+                {"content": "否"},
+            ],
+        })
+        assert resp.status_code == 200, f"期望200, 实际{resp.status_code}: {resp.text}"
+&gt;       assert len(resp.json()["result"]["options"]) == 2
+                   ^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'result'
+
+test_question.py:379: KeyError</failure></testcase><testcase classname="test_question.TestQuestionCountLimit" name="test_tc_qs_018" time="0.891"><failure message="AssertionError: 期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400003,&quot;message&quot;:&quot;题目数量已达上限&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_question.TestQuestionCountLimit object at 0x7f4ce7b33bd0&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a9a840&gt;
+
+    @pytest.mark.slow
+    def test_tc_qs_018(self, auth_headers, create_questionnaire):
+        qnr_id = create_questionnaire()
+        for i in range(1, 51):
+            r = _add_simple_input(auth_headers, qnr_id, f"批量题目{i}")
+            assert r.status_code == 200, f"添加第{i}题失败: {r.text}"
+    
+        detail = _get_questionnaire(auth_headers, qnr_id).json()
+        assert len(detail["result"]["questions"]) == 50
+    
+        resp = _add_simple_input(auth_headers, qnr_id, "第51题-应被拒绝")
+&gt;       assert resp.status_code == 400, f"期望400, 实际{resp.status_code}: {resp.text}"
+E       AssertionError: 期望400, 实际200: {"success":false,"code":400003,"message":"题目数量已达上限"}
+E       assert 200 == 400
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_question.py:395: AssertionError</failure></testcase><testcase classname="test_question.TestQuestionCountLimit" name="test_tc_qs_019" time="0.675" /><testcase classname="test_publish.TestPublishQuestionnaire" name="test_tc_pb_001" time="0.030"><failure message="KeyError: 'result'">self = &lt;test_publish.TestPublishQuestionnaire object at 0x7f4ce7b36510&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire_with_questions = &lt;function create_questionnaire_with_questions.&lt;locals&gt;._create at 0x7f4ce7a9a700&gt;
+
+    def test_tc_pb_001(self, auth_headers, create_questionnaire_with_questions):
+&gt;       qid, _ = create_questionnaire_with_questions()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_publish.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _create():
+        qid = create_questionnaire("含题目的测试问卷", "带题目的自动化测试问卷")
+        questions = [
+            {
+                "type": "radio",
+                "title": "单选测试题",
+                "required": True,
+                "options": [{"content": "选项A"}, {"content": "选项B"}, {"content": "选项C"}]
+            },
+            {
+                "type": "checkbox",
+                "title": "多选测试题",
+                "required": False,
+                "options": [{"content": "多选A"}, {"content": "多选B"}, {"content": "多选C"}]
+            },
+            {
+                "type": "input",
+                "title": "填空测试题",
+                "required": False
+            }
+        ]
+        question_ids = []
+        for q in questions:
+            resp = requests.post(
+                Endpoints.questionnaire_questions(qid),
+                headers=auth_headers,
+                json=q,
+                timeout=REQUEST_TIMEOUT
+            )
+            assert resp.status_code == 200, f"Add question failed: {resp.text}"
+&gt;           question_ids.append(resp.json()["result"]["id"])
+                                ^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'result'
+
+conftest.py:112: KeyError</failure></testcase><testcase classname="test_publish.TestPublishQuestionnaire" name="test_tc_pb_002" time="0.030"><failure message="KeyError: 'result'">self = &lt;test_publish.TestPublishQuestionnaire object at 0x7f4ce7b36bd0&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire_with_questions = &lt;function create_questionnaire_with_questions.&lt;locals&gt;._create at 0x7f4ce7a9ac00&gt;
+
+    def test_tc_pb_002(self, auth_headers, create_questionnaire_with_questions):
+&gt;       qid, _ = create_questionnaire_with_questions()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_publish.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _create():
+        qid = create_questionnaire("含题目的测试问卷", "带题目的自动化测试问卷")
+        questions = [
+            {
+                "type": "radio",
+                "title": "单选测试题",
+                "required": True,
+                "options": [{"content": "选项A"}, {"content": "选项B"}, {"content": "选项C"}]
+            },
+            {
+                "type": "checkbox",
+                "title": "多选测试题",
+                "required": False,
+                "options": [{"content": "多选A"}, {"content": "多选B"}, {"content": "多选C"}]
+            },
+            {
+                "type": "input",
+                "title": "填空测试题",
+                "required": False
+            }
+        ]
+        question_ids = []
+        for q in questions:
+            resp = requests.post(
+                Endpoints.questionnaire_questions(qid),
+                headers=auth_headers,
+                json=q,
+                timeout=REQUEST_TIMEOUT
+            )
+            assert resp.status_code == 200, f"Add question failed: {resp.text}"
+&gt;           question_ids.append(resp.json()["result"]["id"])
+                                ^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'result'
+
+conftest.py:112: KeyError</failure></testcase><testcase classname="test_publish.TestPublishQuestionnaire" name="test_tc_pb_003" time="0.027"><failure message="KeyError: 'result'">self = &lt;test_publish.TestPublishQuestionnaire object at 0x7f4ce7b37290&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire_with_questions = &lt;function create_questionnaire_with_questions.&lt;locals&gt;._create at 0x7f4ce7a9afc0&gt;
+
+    def test_tc_pb_003(self, auth_headers, create_questionnaire_with_questions):
+&gt;       qid, _ = create_questionnaire_with_questions()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_publish.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _create():
+        qid = create_questionnaire("含题目的测试问卷", "带题目的自动化测试问卷")
+        questions = [
+            {
+                "type": "radio",
+                "title": "单选测试题",
+                "required": True,
+                "options": [{"content": "选项A"}, {"content": "选项B"}, {"content": "选项C"}]
+            },
+            {
+                "type": "checkbox",
+                "title": "多选测试题",
+                "required": False,
+                "options": [{"content": "多选A"}, {"content": "多选B"}, {"content": "多选C"}]
+            },
+            {
+                "type": "input",
+                "title": "填空测试题",
+                "required": False
+            }
+        ]
+        question_ids = []
+        for q in questions:
+            resp = requests.post(
+                Endpoints.questionnaire_questions(qid),
+                headers=auth_headers,
+                json=q,
+                timeout=REQUEST_TIMEOUT
+            )
+            assert resp.status_code == 200, f"Add question failed: {resp.text}"
+&gt;           question_ids.append(resp.json()["result"]["id"])
+                                ^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'result'
+
+conftest.py:112: KeyError</failure></testcase><testcase classname="test_publish.TestPublishQuestionnaire" name="test_tc_pb_004" time="0.030"><failure message="KeyError: 'result'">self = &lt;test_publish.TestPublishQuestionnaire object at 0x7f4ce7db8410&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire_with_questions = &lt;function create_questionnaire_with_questions.&lt;locals&gt;._create at 0x7f4ce7a9a840&gt;
+
+    def test_tc_pb_004(self, auth_headers, create_questionnaire_with_questions):
+&gt;       qid, _ = create_questionnaire_with_questions()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_publish.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _create():
+        qid = create_questionnaire("含题目的测试问卷", "带题目的自动化测试问卷")
+        questions = [
+            {
+                "type": "radio",
+                "title": "单选测试题",
+                "required": True,
+                "options": [{"content": "选项A"}, {"content": "选项B"}, {"content": "选项C"}]
+            },
+            {
+                "type": "checkbox",
+                "title": "多选测试题",
+                "required": False,
+                "options": [{"content": "多选A"}, {"content": "多选B"}, {"content": "多选C"}]
+            },
+            {
+                "type": "input",
+                "title": "填空测试题",
+                "required": False
+            }
+        ]
+        question_ids = []
+        for q in questions:
+            resp = requests.post(
+                Endpoints.questionnaire_questions(qid),
+                headers=auth_headers,
+                json=q,
+                timeout=REQUEST_TIMEOUT
+            )
+            assert resp.status_code == 200, f"Add question failed: {resp.text}"
+&gt;           question_ids.append(resp.json()["result"]["id"])
+                                ^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'result'
+
+conftest.py:112: KeyError</failure></testcase><testcase classname="test_publish.TestPublishQuestionnaire" name="test_tc_pb_005" time="0.024"><failure message="KeyError: 'result'">self = &lt;test_publish.TestPublishQuestionnaire object at 0x7f4ce7b374d0&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire_with_questions = &lt;function create_questionnaire_with_questions.&lt;locals&gt;._create at 0x7f4ce7a9b420&gt;
+
+    def test_tc_pb_005(self, auth_headers, create_questionnaire_with_questions):
+&gt;       qid, _ = create_questionnaire_with_questions()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_publish.py:101: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _create():
+        qid = create_questionnaire("含题目的测试问卷", "带题目的自动化测试问卷")
+        questions = [
+            {
+                "type": "radio",
+                "title": "单选测试题",
+                "required": True,
+                "options": [{"content": "选项A"}, {"content": "选项B"}, {"content": "选项C"}]
+            },
+            {
+                "type": "checkbox",
+                "title": "多选测试题",
+                "required": False,
+                "options": [{"content": "多选A"}, {"content": "多选B"}, {"content": "多选C"}]
+            },
+            {
+                "type": "input",
+                "title": "填空测试题",
+                "required": False
+            }
+        ]
+        question_ids = []
+        for q in questions:
+            resp = requests.post(
+                Endpoints.questionnaire_questions(qid),
+                headers=auth_headers,
+                json=q,
+                timeout=REQUEST_TIMEOUT
+            )
+            assert resp.status_code == 200, f"Add question failed: {resp.text}"
+&gt;           question_ids.append(resp.json()["result"]["id"])
+                                ^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'result'
+
+conftest.py:112: KeyError</failure></testcase><testcase classname="test_publish.TestPublishValidation" name="test_tc_pb_006" time="0.026"><failure message="AssertionError: 无题目发布期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400005,&quot;message&quot;:&quot;请至少添加一道题目后再发布&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_publish.TestPublishValidation object at 0x7f4ce7b37990&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a9a840&gt;
+
+    def test_tc_pb_006(self, auth_headers, create_questionnaire):
+        qid = create_questionnaire("无题目问卷", "用于发布校验测试")
+        resp = _publish(auth_headers, qid, {})
+&gt;       assert resp.status_code == 400, f"无题目发布期望400, 实际{resp.status_code}: {resp.text}"
+E       AssertionError: 无题目发布期望400, 实际200: {"success":false,"code":400005,"message":"请至少添加一道题目后再发布"}
+E       assert 200 == 400
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_publish.py:115: AssertionError</failure></testcase><testcase classname="test_publish.TestPublishValidation" name="test_tc_pb_007" time="0.030"><skipped type="pytest.skip" message="API允许发布仅含1个选项的单选题问卷，跳过此校验">/data/documents/2052921194065797121/functional_test/自动化测试脚本/test_publish.py:140: API允许发布仅含1个选项的单选题问卷，跳过此校验</skipped></testcase><testcase classname="test_publish.TestCloseQuestionnaire" name="test_tc_pb_008" time="0.028"><failure message="KeyError: 'result'">self = &lt;test_publish.TestCloseQuestionnaire object at 0x7f4ce7b483d0&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire_with_questions = &lt;function create_questionnaire_with_questions.&lt;locals&gt;._create at 0x7f4ce7a9bb00&gt;
+
+    def test_tc_pb_008(self, auth_headers, create_questionnaire_with_questions):
+&gt;       qid, _ = create_questionnaire_with_questions()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_publish.py:152: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _create():
+        qid = create_questionnaire("含题目的测试问卷", "带题目的自动化测试问卷")
+        questions = [
+            {
+                "type": "radio",
+                "title": "单选测试题",
+                "required": True,
+                "options": [{"content": "选项A"}, {"content": "选项B"}, {"content": "选项C"}]
+            },
+            {
+                "type": "checkbox",
+                "title": "多选测试题",
+                "required": False,
+                "options": [{"content": "多选A"}, {"content": "多选B"}, {"content": "多选C"}]
+            },
+            {
+                "type": "input",
+                "title": "填空测试题",
+                "required": False
+            }
+        ]
+        question_ids = []
+        for q in questions:
+            resp = requests.post(
+                Endpoints.questionnaire_questions(qid),
+                headers=auth_headers,
+                json=q,
+                timeout=REQUEST_TIMEOUT
+            )
+            assert resp.status_code == 200, f"Add question failed: {resp.text}"
+&gt;           question_ids.append(resp.json()["result"]["id"])
+                                ^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'result'
+
+conftest.py:112: KeyError</failure></testcase><testcase classname="test_publish.TestCloseQuestionnaire" name="test_tc_pb_009" time="0.027"><failure message="AssertionError: draft问卷关闭期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400008,&quot;message&quot;:&quot;当前状态不允许关闭（仅进行中的问卷可关闭）&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_publish.TestCloseQuestionnaire object at 0x7f4ce7b48790&gt;
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImQ4ODNhOWI1LTU5ZmYtNDNiOC05OGM0LTliNzM4Y2F...E3Nzg1NzA4NDIsImV4cCI6MTc3ODU5OTY0Mn0.XWHbPMvJn1ZEqa4GeZYnPnjXnwOSj2coKRMCN02JNOQ', 'Content-Type': 'application/json'}
+create_questionnaire = &lt;function create_questionnaire.&lt;locals&gt;._create at 0x7f4ce7a9b6a0&gt;
+
+    def test_tc_pb_009(self, auth_headers, create_questionnaire):
+        qid = create_questionnaire("草稿问卷", "用于关闭校验测试")
+        resp = _close(auth_headers, qid)
+&gt;       assert resp.status_code == 400, f"draft问卷关闭期望400, 实际{resp.status_code}: {resp.text}"
+E       AssertionError: draft问卷关闭期望400, 实际200: {"success":false,"code":400008,"message":"当前状态不允许关闭（仅进行中的问卷可关闭）"}
+E       assert 200 == 400
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_publish.py:167: AssertionError</failure></testcase><testcase time="0.000" /><testcase classname="pytest" name="internal" time="0.000"><error message="internal error">Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/main.py", line 318, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+                         ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/main.py", line 372, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_callers.py", line 167, in _multicall
+    raise exception
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_callers.py", line 139, in _multicall
+    teardown.throw(exception)
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/logging.py", line 801, in pytest_runtestloop
+    return (yield)  # Run all the tests.
+            ^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_callers.py", line 139, in _multicall
+    teardown.throw(exception)
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/terminal.py", line 707, in pytest_runtestloop
+    result = yield
+             ^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/main.py", line 396, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_callers.py", line 167, in _multicall
+    raise exception
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_callers.py", line 139, in _multicall
+    teardown.throw(exception)
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/warnings.py", line 89, in pytest_runtest_protocol
+    return (yield)
+            ^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_callers.py", line 139, in _multicall
+    teardown.throw(exception)
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/assertion/__init__.py", line 192, in pytest_runtest_protocol
+    return (yield)
+            ^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_callers.py", line 139, in _multicall
+    teardown.throw(exception)
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/unittest.py", line 591, in pytest_runtest_protocol
+    return (yield)
+            ^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_callers.py", line 139, in _multicall
+    teardown.throw(exception)
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/faulthandler.py", line 102, in pytest_runtest_protocol
+    return (yield)
+            ^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/runner.py", line 118, in pytest_runtest_protocol
+    runtestprotocol(item, nextitem=nextitem)
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/runner.py", line 137, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/runner.py", line 251, in call_and_report
+    ihook.pytest_runtest_logreport(report=report)
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_callers.py", line 167, in _multicall
+    raise exception
+  File "/usr/local/lib/python3.11/dist-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/terminal.py", line 685, in pytest_runtest_logreport
+    self._write_progress_information_filling_space()
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/terminal.py", line 785, in _write_progress_information_filling_space
+    self.write(msg.rjust(fill), flush=True, **{color: True})
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/terminal.py", line 525, in write
+    self._tw.write(content, flush=flush, **markup)
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/_io/terminalwriter.py", line 164, in write
+    self.write_raw(msg, flush=flush)
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/_io/terminalwriter.py", line 180, in write_raw
+    self.flush()
+  File "/usr/local/lib/python3.11/dist-packages/_pytest/_io/terminalwriter.py", line 187, in flush
+    self._file.flush()
+BrokenPipeError: [Errno 32] Broken pipe</error></testcase></testsuite></testsuites>

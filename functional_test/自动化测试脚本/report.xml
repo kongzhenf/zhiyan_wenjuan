@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="28" failures="65" skipped="5" tests="129" time="8.939" timestamp="2026-05-12T03:31:53.890689+00:00" hostname="3796f7958b47"><testcase classname="test_auth.TestAuthLogin" name="test_tc_auth_001" time="0.090" /><testcase classname="test_auth.TestAuthLogin" name="test_tc_auth_002" time="0.094" /><testcase classname="test_auth.TestAuthLogin" name="test_tc_auth_003" time="0.087" /><testcase classname="test_auth.TestAuthLoginValidation" name="test_tc_auth_004" time="0.012" /><testcase classname="test_auth.TestAuthLoginValidation" name="test_tc_auth_005" time="0.004" /><testcase classname="test_auth.TestAuthLoginValidation" name="test_tc_auth_006" time="0.004" /><testcase classname="test_auth.TestAuthLoginFailure" name="test_tc_auth_007" time="0.085"><failure message="AssertionError: 密码错误期望401, 实际200&#10;assert 200 == 401&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_auth.py:87: in test_tc_auth_007
+    assert resp.status_code == 401, f"密码错误期望401, 实际{resp.status_code}"
+E   AssertionError: 密码错误期望401, 实际200
+E   assert 200 == 401
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_auth.TestAuthLoginFailure" name="test_tc_auth_008" time="0.008"><failure message="AssertionError: 用户名不存在期望401, 实际200&#10;assert 200 == 401&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_auth.py:97: in test_tc_auth_008
+    assert resp.status_code == 401, f"用户名不存在期望401, 实际{resp.status_code}"
+E   AssertionError: 用户名不存在期望401, 实际200
+E   assert 200 == 401
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_auth.TestAuthAccountLock" name="test_tc_auth_009" time="0.000"><skipped type="pytest.skip" message="会导致admin账号锁定10分钟，影响其他测试">/data/documents/2052921194065797121/functional_test/自动化测试脚本/test_auth.py:105: 会导致admin账号锁定10分钟，影响其他测试</skipped></testcase><testcase classname="test_auth.TestAuthAccountLock" name="test_tc_auth_010" time="0.000"><skipped type="pytest.skip" message="需要等待10分钟，仅手动执行">/data/documents/2052921194065797121/functional_test/自动化测试脚本/test_auth.py:116: 需要等待10分钟，仅手动执行</skipped></testcase><testcase classname="test_auth.TestAuthTokenRefresh" name="test_tc_auth_011" time="0.095" /><testcase classname="test_auth.TestAuthTokenRefresh" name="test_tc_auth_012" time="0.004"><failure message="AssertionError: 无效refreshToken期望401, 实际200&#10;assert 200 == 401&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_auth.py:154: in test_tc_auth_012
+    assert resp.status_code == 401, f"无效refreshToken期望401, 实际{resp.status_code}"
+E   AssertionError: 无效refreshToken期望401, 实际200
+E   assert 200 == 401
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_auth.TestAuthTokenRefresh" name="test_tc_auth_013" time="0.004" /><testcase classname="test_auth.TestAuthLogout" name="test_tc_auth_014" time="0.092" /><testcase classname="test_auth.TestAuthLogout" name="test_tc_auth_015" time="0.096" /><testcase classname="test_auth.TestAuthJWT" name="test_tc_auth_016" time="0.002" /><testcase classname="test_auth.TestAuthJWT" name="test_tc_auth_017" time="0.003" /><testcase classname="test_auth.TestAuthJWT" name="test_tc_auth_018" time="0.089" /><testcase classname="test_fill.TestFillGetContent" name="test_tc_fill_001" time="0.133"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_fill.TestFillGetContent" name="test_tc_fill_002" time="0.052"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_fill.TestFillGetContent" name="test_tc_fill_003" time="0.005" /><testcase classname="test_fill.TestFillGetContent" name="test_tc_fill_010" time="0.004" /><testcase classname="test_fill.TestFillGetContent" name="test_tc_fill_023" time="0.005"><failure message="assert 500 in (404, 405)&#10; +  where 500 = &lt;Response [500]&gt;.status_code">test_fill.py:201: in test_tc_fill_023
+    assert resp.status_code in (404, 405)
+E   assert 500 in (404, 405)
+E    +  where 500 = &lt;Response [500]&gt;.status_code</failure></testcase><testcase classname="test_fill.TestFillSubmit" name="test_tc_fill_004" time="0.038"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_fill.TestFillSubmit" name="test_tc_fill_005" time="0.040"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_fill.TestFillSubmit" name="test_tc_fill_006" time="0.041"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_fill.TestFillSubmit" name="test_tc_fill_007" time="0.039"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_fill.TestFillSubmit" name="test_tc_fill_011" time="0.006" /><testcase classname="test_fill.TestFillSubmit" name="test_tc_fill_024" time="0.038"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_fill.TestFillSubmit" name="test_tc_fill_025" time="0.038"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_fill.TestFillClosedQuestionnaire" name="test_tc_fill_008" time="0.033"><failure message="KeyError: 'result'">test_fill.py:316: in test_tc_fill_008
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_fill.TestFillClosedQuestionnaire" name="test_tc_fill_009" time="0.034"><failure message="KeyError: 'result'">test_fill.py:329: in test_tc_fill_009
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_fill.TestFillDeviceRestriction" name="test_tc_fill_012" time="0.050"><failure message="KeyError: 'result'">test_fill.py:343: in test_tc_fill_012
+    qid, access_code, _ = _create_publish_with_options(
+test_fill.py:136: in _create_publish_with_options
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_fill.TestFillDeviceRestriction" name="test_tc_fill_013" time="0.039"><failure message="KeyError: 'result'">test_fill.py:358: in test_tc_fill_013
+    qid, access_code, _ = _create_publish_with_options(
+test_fill.py:136: in _create_publish_with_options
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_fill.TestFillDeviceStatus" name="test_tc_fill_014" time="0.052"><failure message="KeyError: 'result'">test_fill.py:377: in test_tc_fill_014
+    qid, access_code, _ = _create_publish_with_options(
+test_fill.py:136: in _create_publish_with_options
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_fill.TestFillDeviceStatus" name="test_tc_fill_015" time="0.047"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_fill.TestFillDeviceStatus" name="test_tc_fill_016" time="0.048"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_fill.TestFillRequiredValidation" name="test_tc_fill_017" time="0.048"><failure message="KeyError: 'result'">test_fill.py:448: in test_tc_fill_017
+    qid, access_code, question_ids = self._create_required_questionnaire(
+test_fill.py:443: in _create_required_questionnaire
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_fill.TestFillRequiredValidation" name="test_tc_fill_018" time="0.042"><failure message="KeyError: 'result'">test_fill.py:460: in test_tc_fill_018
+    qid, access_code, question_ids = self._create_required_questionnaire(
+test_fill.py:443: in _create_required_questionnaire
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_fill.TestFillMaxResponses" name="test_tc_fill_019" time="0.037"><failure message="KeyError: 'result'">test_fill.py:475: in test_tc_fill_019
+    qid, access_code, _ = _create_publish_with_options(
+test_fill.py:136: in _create_publish_with_options
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_fill.TestFillMaxResponses" name="test_tc_fill_020" time="0.039"><failure message="KeyError: 'result'">test_fill.py:492: in test_tc_fill_020
+    qid, access_code, _ = _create_publish_with_options(
+test_fill.py:136: in _create_publish_with_options
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_fill.TestFillRateLimit" name="test_tc_fill_021" time="0.049"><failure message="KeyError: 'result'">test_fill.py:513: in test_tc_fill_021
+    qid, access_code, _ = _create_publish_with_options(
+test_fill.py:136: in _create_publish_with_options
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_fill.TestFillRateLimit" name="test_tc_fill_022" time="0.000"><skipped type="pytest.skip" message="需要等待60秒限流窗口重置">/data/documents/2052921194065797121/functional_test/自动化测试脚本/test_fill.py:526: 需要等待60秒限流窗口重置</skipped></testcase><testcase classname="test_fill.TestFillUnpublished" name="test_tc_fill_026" time="0.038"><failure message="KeyError: 'result'">test_fill.py:534: in test_tc_fill_026
+    qid, _ = create_questionnaire_with_questions()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_publish.TestPublishQuestionnaire" name="test_tc_pb_001" time="0.035"><failure message="KeyError: 'result'">test_publish.py:44: in test_tc_pb_001
+    qid, _ = create_questionnaire_with_questions()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_publish.TestPublishQuestionnaire" name="test_tc_pb_002" time="0.034"><failure message="KeyError: 'result'">test_publish.py:62: in test_tc_pb_002
+    qid, _ = create_questionnaire_with_questions()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_publish.TestPublishQuestionnaire" name="test_tc_pb_003" time="0.035"><failure message="KeyError: 'result'">test_publish.py:74: in test_tc_pb_003
+    qid, _ = create_questionnaire_with_questions()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_publish.TestPublishQuestionnaire" name="test_tc_pb_004" time="0.033"><failure message="KeyError: 'result'">test_publish.py:87: in test_tc_pb_004
+    qid, _ = create_questionnaire_with_questions()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_publish.TestPublishQuestionnaire" name="test_tc_pb_005" time="0.033"><failure message="KeyError: 'result'">test_publish.py:101: in test_tc_pb_005
+    qid, _ = create_questionnaire_with_questions()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_publish.TestPublishValidation" name="test_tc_pb_006" time="0.034"><failure message="AssertionError: 无题目发布期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400005,&quot;message&quot;:&quot;请至少添加一道题目后再发布&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_publish.py:115: in test_tc_pb_006
+    assert resp.status_code == 400, f"无题目发布期望400, 实际{resp.status_code}: {resp.text}"
+E   AssertionError: 无题目发布期望400, 实际200: {"success":false,"code":400005,"message":"请至少添加一道题目后再发布"}
+E   assert 200 == 400
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_publish.TestPublishValidation" name="test_tc_pb_007" time="0.040"><skipped type="pytest.skip" message="API允许发布仅含1个选项的单选题问卷，跳过此校验">/data/documents/2052921194065797121/functional_test/自动化测试脚本/test_publish.py:140: API允许发布仅含1个选项的单选题问卷，跳过此校验</skipped></testcase><testcase classname="test_publish.TestCloseQuestionnaire" name="test_tc_pb_008" time="0.035"><failure message="KeyError: 'result'">test_publish.py:152: in test_tc_pb_008
+    qid, _ = create_questionnaire_with_questions()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_publish.TestCloseQuestionnaire" name="test_tc_pb_009" time="0.032"><failure message="AssertionError: draft问卷关闭期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400008,&quot;message&quot;:&quot;当前状态不允许关闭（仅进行中的问卷可关闭）&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_publish.py:167: in test_tc_pb_009
+    assert resp.status_code == 400, f"draft问卷关闭期望400, 实际{resp.status_code}: {resp.text}"
+E   AssertionError: draft问卷关闭期望400, 实际200: {"success":false,"code":400008,"message":"当前状态不允许关闭（仅进行中的问卷可关闭）"}
+E   assert 200 == 400
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_publish.TestCloseQuestionnaire" name="test_tc_pb_010" time="0.032"><failure message="KeyError: 'result'">test_publish.py:175: in test_tc_pb_010
+    qid, _ = create_questionnaire_with_questions()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_publish.TestGetAccessLink" name="test_tc_pb_011" time="0.035"><failure message="KeyError: 'result'">test_publish.py:187: in test_tc_pb_011
+    qid, _ = create_questionnaire_with_questions()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_publish.TestGetAccessLink" name="test_tc_pb_012" time="0.055"><failure message="AssertionError: 未发布问卷获取链接期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400011,&quot;message&quot;:&quot;问卷尚未发布，无法获取访问链接&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_publish.py:211: in test_tc_pb_012
+    assert resp.status_code == 400, f"未发布问卷获取链接期望400, 实际{resp.status_code}: {resp.text}"
+E   AssertionError: 未发布问卷获取链接期望400, 实际200: {"success":false,"code":400011,"message":"问卷尚未发布，无法获取访问链接"}
+E   assert 200 == 400
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_publish.TestGetQRCode" name="test_tc_pb_013" time="0.036"><failure message="KeyError: 'result'">test_publish.py:219: in test_tc_pb_013
+    qid, _ = create_questionnaire_with_questions()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_publish.TestGetQRCode" name="test_tc_pb_014" time="0.035"><failure message="KeyError: 'result'">test_publish.py:234: in test_tc_pb_014
+    qid, _ = create_questionnaire_with_questions()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_publish.TestGetQRCode" name="test_tc_pb_015" time="0.047"><failure message="AssertionError: 未发布问卷获取二维码期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400011,&quot;message&quot;:&quot;问卷尚未发布，无法生成二维码&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_publish.py:256: in test_tc_pb_015
+    assert resp.status_code == 400, f"未发布问卷获取二维码期望400, 实际{resp.status_code}: {resp.text}"
+E   AssertionError: 未发布问卷获取二维码期望400, 实际200: {"success":false,"code":400011,"message":"问卷尚未发布，无法生成二维码"}
+E   assert 200 == 400
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_question.TestAddQuestion" name="test_tc_qs_001" time="0.040"><failure message="KeyError: 'result'">test_question.py:49: in test_tc_qs_001
+    result = data["result"]
+             ^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_question.TestAddQuestion" name="test_tc_qs_002" time="0.038"><failure message="KeyError: 'result'">test_question.py:79: in test_tc_qs_002
+    result = resp.json()["result"]
+             ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_question.TestAddQuestion" name="test_tc_qs_003" time="0.042" /><testcase classname="test_question.TestAddQuestion" name="test_tc_qs_004" time="0.038"><failure message="KeyError: 'config'">test_question.py:112: in test_tc_qs_004
+    assert result["config"]["maxRating"] == 5
+           ^^^^^^^^^^^^^^^^
+E   KeyError: 'config'</failure></testcase><testcase classname="test_question.TestAddQuestion" name="test_tc_qs_005" time="0.033"><failure message="KeyError: 'result'">test_question.py:128: in test_tc_qs_005
+    result = resp.json()["result"]
+             ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_question.TestAddQuestion" name="test_tc_qs_006" time="0.008"><failure message="AssertionError: 期望404, 实际200: {&quot;success&quot;:false,&quot;code&quot;:404001,&quot;message&quot;:&quot;问卷不存在&quot;}&#10;assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_question.py:145: in test_tc_qs_006
+    assert resp.status_code == 404, f"期望404, 实际{resp.status_code}: {resp.text}"
+E   AssertionError: 期望404, 实际200: {"success":false,"code":404001,"message":"问卷不存在"}
+E   assert 200 == 404
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_question.TestUpdateQuestion" name="test_tc_qs_007" time="0.035"><failure message="KeyError: 'result'">test_question.py:165: in test_tc_qs_007
+    q_id = add_resp.json()["result"]["id"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_question.TestUpdateQuestion" name="test_tc_qs_008" time="0.036"><failure message="KeyError: 'result'">test_question.py:208: in test_tc_qs_008
+    q_id = add_resp.json()["result"]["id"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_question.TestUpdateQuestion" name="test_tc_qs_009" time="0.038"><failure message="AssertionError: 期望404, 实际200: {&quot;success&quot;:false,&quot;code&quot;:404002,&quot;message&quot;:&quot;题目不存在&quot;}&#10;assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_question.py:242: in test_tc_qs_009
+    assert resp.status_code == 404, f"期望404, 实际{resp.status_code}: {resp.text}"
+E   AssertionError: 期望404, 实际200: {"success":false,"code":404002,"message":"题目不存在"}
+E   assert 200 == 404
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_question.TestDeleteQuestion" name="test_tc_qs_010" time="0.033"><failure message="KeyError: 'result'">test_question.py:260: in test_tc_qs_010
+    q_id = add_resp.json()["result"]["id"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_question.TestDeleteQuestion" name="test_tc_qs_011" time="0.031"><failure message="AssertionError: 期望404, 实际200: {&quot;success&quot;:false,&quot;code&quot;:404002,&quot;message&quot;:&quot;题目不存在&quot;}&#10;assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_question.py:280: in test_tc_qs_011
+    assert resp.status_code == 404, f"期望404, 实际{resp.status_code}: {resp.text}"
+E   AssertionError: 期望404, 实际200: {"success":false,"code":404002,"message":"题目不存在"}
+E   assert 200 == 404
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_question.TestSortQuestions" name="test_tc_qs_012" time="0.112" /><testcase classname="test_question.TestSortQuestions" name="test_tc_qs_013" time="0.085"><failure message="AssertionError: 期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400004,&quot;message&quot;:&quot;题目ID列表与实际题目不匹配&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_question.py:320: in test_tc_qs_013
+    assert resp.status_code == 400, f"期望400, 实际{resp.status_code}: {resp.text}"
+E   AssertionError: 期望400, 实际200: {"success":false,"code":400004,"message":"题目ID列表与实际题目不匹配"}
+E   assert 200 == 400
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_question.TestSortQuestions" name="test_tc_qs_014" time="0.076"><failure message="AssertionError: 期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400004,&quot;message&quot;:&quot;题目ID列表与实际题目不匹配&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_question.py:338: in test_tc_qs_014
+    assert resp.status_code == 400, f"期望400, 实际{resp.status_code}: {resp.text}"
+E   AssertionError: 期望400, 实际200: {"success":false,"code":400004,"message":"题目ID列表与实际题目不匹配"}
+E   assert 200 == 400
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_question.TestOptionCountValidation" name="test_tc_qs_015" time="0.053"><failure message="AssertionError: 期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400002,&quot;message&quot;:&quot;选择题选项至少需要2项&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_question.py:352: in test_tc_qs_015
+    assert resp.status_code == 400, f"期望400, 实际{resp.status_code}: {resp.text}"
+E   AssertionError: 期望400, 实际200: {"success":false,"code":400002,"message":"选择题选项至少需要2项"}
+E   assert 200 == 400
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_question.TestOptionCountValidation" name="test_tc_qs_016" time="0.034"><failure message="AssertionError: 期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400002,&quot;message&quot;:&quot;选择题选项最多20项&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_question.py:364: in test_tc_qs_016
+    assert resp.status_code == 400, f"期望400, 实际{resp.status_code}: {resp.text}"
+E   AssertionError: 期望400, 实际200: {"success":false,"code":400002,"message":"选择题选项最多20项"}
+E   assert 200 == 400
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_question.TestOptionCountValidation" name="test_tc_qs_017" time="0.050"><failure message="KeyError: 'result'">test_question.py:379: in test_tc_qs_017
+    assert len(resp.json()["result"]["options"]) == 2
+               ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_question.TestQuestionCountLimit" name="test_tc_qs_018" time="1.366"><failure message="AssertionError: 期望400, 实际200: {&quot;success&quot;:false,&quot;code&quot;:400003,&quot;message&quot;:&quot;题目数量已达上限&quot;}&#10;assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_question.py:395: in test_tc_qs_018
+    assert resp.status_code == 400, f"期望400, 实际{resp.status_code}: {resp.text}"
+E   AssertionError: 期望400, 实际200: {"success":false,"code":400003,"message":"题目数量已达上限"}
+E   assert 200 == 400
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_question.TestQuestionCountLimit" name="test_tc_qs_019" time="1.393" /><testcase classname="test_questionnaire.TestCreateQuestionnaire" name="test_tc_qn_001" time="0.032" /><testcase classname="test_questionnaire.TestCreateQuestionnaire" name="test_tc_qn_002" time="0.007"><failure message="assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_questionnaire.py:40: in test_tc_qn_002
+    assert resp.status_code == 400
+E   assert 200 == 400
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_questionnaire.TestCreateQuestionnaire" name="test_tc_qn_003" time="0.007"><failure message="assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_questionnaire.py:52: in test_tc_qn_003
+    assert resp.status_code == 400
+E   assert 200 == 400
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_questionnaire.TestCreateQuestionnaire" name="test_tc_qn_004" time="0.068" /><testcase classname="test_questionnaire.TestListQuestionnaire" name="test_tc_qn_005" time="0.014"><failure message="AssertionError: assert 'page' in {'list': [{'createdAt': '2026-05-11T11:29:32', 'id': 8, 'questionnaireId': '008', 'responseCount': 0, ...}, {'createdAt': '2026-05-11T08:44:02', 'id': 7, 'questionnaireId': '007', 'responseCount': 0, ...}, {'createdAt': '2026-05-11T08:35:28', 'id': 6, 'questionnaireId': '006', 'responseCount': 0, ...}, {'createdAt': '2026-05-11T08:07:22', 'id': 5, 'questionnaireId': '005', 'responseCount': 1, ...}, {'createdAt': '2026-05-11T07:54:24', 'id': 4, 'questionnaireId': '004', 'responseCount': 0, ...}, {'createdAt': '2026-05-11T07:53:14', 'id': 3, 'questionnaireId': '003', 'responseCount': 0, ...}, ...], 'pagination': {'page': 1, 'pageSize': 20, 'total': 8, 'totalPages': 1}}">test_questionnaire.py:86: in test_tc_qn_005
+    assert "page" in result
+E   AssertionError: assert 'page' in {'list': [{'createdAt': '2026-05-11T11:29:32', 'id': 8, 'questionnaireId': '008', 'responseCount': 0, ...}, {'createdAt': '2026-05-11T08:44:02', 'id': 7, 'questionnaireId': '007', 'responseCount': 0, ...}, {'createdAt': '2026-05-11T08:35:28', 'id': 6, 'questionnaireId': '006', 'responseCount': 0, ...}, {'createdAt': '2026-05-11T08:07:22', 'id': 5, 'questionnaireId': '005', 'responseCount': 1, ...}, {'createdAt': '2026-05-11T07:54:24', 'id': 4, 'questionnaireId': '004', 'responseCount': 0, ...}, {'createdAt': '2026-05-11T07:53:14', 'id': 3, 'questionnaireId': '003', 'responseCount': 0, ...}, ...], 'pagination': {'page': 1, 'pageSize': 20, 'total': 8, 'totalPages': 1}}</failure></testcase><testcase classname="test_questionnaire.TestListQuestionnaire" name="test_tc_qn_006" time="0.061" /><testcase classname="test_questionnaire.TestListQuestionnaire" name="test_tc_qn_007" time="0.033" /><testcase classname="test_questionnaire.TestListQuestionnaire" name="test_tc_qn_008" time="0.015" /><testcase classname="test_questionnaire.TestListQuestionnaire" name="test_tc_qn_009" time="0.010"><failure message="KeyError: 'page'">test_questionnaire.py:143: in test_tc_qn_009
+    assert result["page"] == 2
+           ^^^^^^^^^^^^^^
+E   KeyError: 'page'</failure></testcase><testcase classname="test_questionnaire.TestGetQuestionnaire" name="test_tc_qn_010" time="0.071" /><testcase classname="test_questionnaire.TestGetQuestionnaire" name="test_tc_qn_011" time="0.008"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_questionnaire.py:173: in test_tc_qn_011
+    assert resp.status_code == 404
+E   assert 200 == 404
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_questionnaire.TestUpdateQuestionnaire" name="test_tc_qn_012" time="0.046" /><testcase classname="test_questionnaire.TestUpdateQuestionnaire" name="test_tc_qn_013" time="0.032"><failure message="assert 200 == 400&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_questionnaire.py:207: in test_tc_qn_013
+    assert resp.status_code == 400
+E   assert 200 == 400
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_questionnaire.TestUpdateQuestionnaire" name="test_tc_qn_014" time="0.008"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_questionnaire.py:218: in test_tc_qn_014
+    assert resp.status_code == 404
+E   assert 200 == 404
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_questionnaire.TestDeleteQuestionnaire" name="test_tc_qn_015" time="0.041"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_questionnaire.py:239: in test_tc_qn_015
+    assert get_resp.status_code == 404
+E   assert 200 == 404
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_questionnaire.TestDeleteQuestionnaire" name="test_tc_qn_016" time="0.021"><failure message="KeyError: 'result'">test_questionnaire.py:321: in test_tc_qn_016
+    qid = self._create_questionnaire_with_response(auth_headers)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test_questionnaire.py:263: in _create_questionnaire_with_response
+    question_id = q_resp.json()["result"]["id"]
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_questionnaire.TestDeleteQuestionnaire" name="test_tc_qn_017" time="0.026"><failure message="KeyError: 'result'">test_questionnaire.py:341: in test_tc_qn_017
+    qid = self._create_questionnaire_with_response(auth_headers)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test_questionnaire.py:263: in _create_questionnaire_with_response
+    question_id = q_resp.json()["result"]["id"]
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_questionnaire.TestDeleteQuestionnaire" name="test_tc_qn_018" time="0.009"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_questionnaire.py:365: in test_tc_qn_018
+    assert resp.status_code == 404
+E   assert 200 == 404
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_questionnaire.TestCopyQuestionnaire" name="test_tc_qn_019" time="0.071"><failure message="KeyError: 'result'">test_questionnaire.py:372: in test_tc_qn_019
+    qid, _ = create_questionnaire_with_questions()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_questionnaire.TestCopyQuestionnaire" name="test_tc_qn_020" time="0.008"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_questionnaire.py:399: in test_tc_qn_020
+    assert resp.status_code == 404
+E   assert 200 == 404
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_questionnaire.TestDraftQuestionnaire" name="test_tc_qn_021" time="0.099"><failure message="assert 500 == 200&#10; +  where 500 = &lt;Response [500]&gt;.status_code">test_questionnaire.py:426: in test_tc_qn_021
+    assert resp.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500]&gt;.status_code</failure></testcase><testcase classname="test_questionnaire.TestDraftQuestionnaire" name="test_tc_qn_022" time="0.071"><failure message="KeyError: 'result'">test_questionnaire.py:437: in test_tc_qn_022
+    qid, _ = create_questionnaire_with_questions()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_questionnaire.TestDraftQuestionnaire" name="test_tc_qn_023" time="0.007"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_questionnaire.py:465: in test_tc_qn_023
+    assert resp.status_code == 404
+E   assert 200 == 404
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_questionnaire.TestDraftQuestionnaire" name="test_tc_qn_024" time="0.051" /><testcase classname="test_questionnaire.TestPreviewQuestionnaire" name="test_tc_qn_025" time="0.037"><failure message="KeyError: 'result'">test_questionnaire.py:482: in test_tc_qn_025
+    qid, _ = create_questionnaire_with_questions()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</failure></testcase><testcase classname="test_questionnaire.TestPreviewQuestionnaire" name="test_tc_qn_026" time="0.007"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_questionnaire.py:503: in test_tc_qn_026
+    assert resp.status_code == 404
+E   assert 200 == 404
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_questionnaire.TestAuthRequired" name="test_tc_qn_027" time="0.003" /><testcase classname="test_questionnaire.TestAuthRequired" name="test_tc_qn_028" time="0.003" /><testcase classname="test_statistics.TestStatisticsOverview" name="test_tc_stat_001" time="0.060"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsOverview" name="test_tc_stat_002" time="0.006" /><testcase classname="test_statistics.TestStatisticsOverview" name="test_tc_stat_003" time="0.003" /><testcase classname="test_statistics.TestStatisticsQuestions" name="test_tc_stat_004" time="0.036"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsQuestions" name="test_tc_stat_005" time="0.068"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsQuestions" name="test_tc_stat_006" time="0.032"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsQuestionTexts" name="test_tc_stat_007" time="0.035"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsQuestionTexts" name="test_tc_stat_008" time="0.078"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsQuestionTexts" name="test_tc_stat_009" time="0.054"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsQuestionTexts" name="test_tc_stat_010" time="0.038"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsExport" name="test_tc_stat_011" time="0.055"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsExport" name="test_tc_stat_012" time="0.069"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsExport" name="test_tc_stat_013" time="0.058"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsExport" name="test_tc_stat_014" time="0.042"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsExportDownload" name="test_tc_stat_015" time="0.040"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsExportDownload" name="test_tc_stat_016" time="0.007"><failure message="assert 200 == 404&#10; +  where 200 = &lt;Response [200]&gt;.status_code">test_statistics.py:345: in test_tc_stat_016
+    assert resp.status_code == 404
+E   assert 200 == 404
+E    +  where 200 = &lt;Response [200]&gt;.status_code</failure></testcase><testcase classname="test_statistics.TestStatisticsExportDownload" name="test_tc_stat_017" time="0.032"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsExportDownload" name="test_tc_stat_018" time="0.000"><skipped type="pytest.skip" message="需要数据库直接操作设置过期时间">/data/documents/2052921194065797121/functional_test/自动化测试脚本/test_statistics.py:370: 需要数据库直接操作设置过期时间</skipped></testcase><testcase classname="test_statistics.TestStatisticsExportList" name="test_tc_stat_019" time="0.006"><failure message="AssertionError: assert 'list' in {'items': [], 'page': 1, 'pageSize': 10, 'total': 0, ...}">test_statistics.py:386: in test_tc_stat_019
+    assert "list" in result
+E   AssertionError: assert 'list' in {'items': [], 'page': 1, 'pageSize': 10, 'total': 0, ...}</failure></testcase><testcase classname="test_statistics.TestStatisticsExportList" name="test_tc_stat_020" time="0.029"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsTimeRange" name="test_tc_stat_021" time="0.053"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsTimeRange" name="test_tc_stat_022" time="0.028"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase><testcase classname="test_statistics.TestStatisticsTimeRange" name="test_tc_stat_023" time="0.034"><error message="failed on setup with &quot;KeyError: 'result'&quot;">conftest.py:121: in published_questionnaire
+    qid, question_ids = create_questionnaire_with_questions()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+conftest.py:112: in _create
+    question_ids.append(resp.json()["result"]["id"])
+                        ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'result'</error></testcase></testsuite></testsuites>

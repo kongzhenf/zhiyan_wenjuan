@@ -1,165 +1,248 @@
-# 功能基线清单 (FUNCTIONAL BASELINE)
+# 功能基线清单 (FUNCTIONAL_BASELINE)
 
-> 生成时间: 2026-05-11
-> 来源: 需求文档 + 编码产物交叉比对
-> 部署地址: http://10.32.129.153:8082 (API基础路径 /api)
-> 管理员账号: admin / admin123
+> 本文档从需求文档和编码产物中提取全部功能项，作为测试用例编写的基线参照。
+> 每条功能项至少对应 2 条测试用例（正常 + 异常），标记 `[x]` 表示已编写用例覆盖。
 
 ---
 
 ## 一、功能需求清单
 
-### 模块1：认证管理 (Auth)
+### 管理员登录模块
 
-| 编号 | 描述 | 关联接口 | 需要用例数 | 状态 |
-|------|------|----------|-----------|------|
-| [x] FR-001 | 管理员使用正确账号密码登录 | POST /api/auth/login | 3 | 已覆盖 |
-| [x] FR-002 | 登录参数校验（用户名/密码为空） | POST /api/auth/login | 3 | 已覆盖 |
-| [x] FR-003 | 登录失败-用户名或密码错误 | POST /api/auth/login | 2 | 已覆盖 |
-| [x] FR-004 | 账号锁定（连续5次错误密码） | POST /api/auth/login | 2 | 已覆盖 |
-| [x] FR-005 | Token刷新 | POST /api/auth/refresh | 3 | 已覆盖 |
-| [x] FR-006 | 退出登录 | POST /api/auth/logout | 2 | 已覆盖 |
-| [x] FR-007 | JWT鉴权-未登录/Token过期访问后台接口 | JwtAuthFilter | 3 | 已覆盖 |
+| 编号 | 功能描述 | 需要用例数 | 状态 |
+|------|----------|-----------|------|
+| FR-001 | 管理员输入正确账号密码登录成功，跳转管理首页 | 2 | [x] |
+| FR-002 | 用户名为空时提交，前端校验提示"请输入用户名" | 2 | [x] |
+| FR-003 | 密码为空时提交，前端校验提示"请输入密码" | 2 | [x] |
+| FR-004 | 输入错误密码，显示登录失败提示 | 2 | [x] |
+| FR-005 | 未登录用户访问后台页面自动跳转至登录页 | 2 | [x] |
+| FR-006 | 已登录用户访问 /login 自动跳转至 /dashboard | 2 | [x] |
+| FR-007 | 支持 Enter 键提交登录表单 | 2 | [x] |
+| FR-008 | 登录过程中按钮显示 loading 状态，防止重复提交 | 2 | [x] |
+| FR-009 | Token 过期后自动刷新 Token（静默刷新） | 2 | [x] |
+| FR-010 | Refresh Token 失效时清除登录状态并跳转登录页 | 2 | [x] |
 
-### 模块2：问卷管理 (Questionnaire)
+### 首页概览模块（Dashboard）
 
-| 编号 | 描述 | 关联接口 | 需要用例数 | 状态 |
-|------|------|----------|-----------|------|
-| [x] FR-008 | 创建问卷（输入标题和描述） | POST /api/questionnaires | 3 | 已覆盖 |
-| [x] FR-009 | 获取问卷列表（分页、状态筛选、关键字搜索、排序） | GET /api/questionnaires | 4 | 已覆盖 |
-| [x] FR-010 | 获取问卷详情 | GET /api/questionnaires/{id} | 2 | 已覆盖 |
-| [x] FR-011 | 更新问卷基本信息 | PUT /api/questionnaires/{id} | 3 | 已覆盖 |
-| [x] FR-012 | 删除问卷（含二次确认逻辑） | DELETE /api/questionnaires/{id} | 3 | 已覆盖 |
-| [x] FR-013 | 复制问卷 | POST /api/questionnaires/{id}/copy | 2 | 已覆盖 |
-| [x] FR-014 | 保存问卷草稿 | PUT /api/questionnaires/{id}/draft | 3 | 已覆盖 |
-| [x] FR-015 | 预览问卷（H5效果） | GET /api/questionnaires/{id}/preview | 2 | 已覆盖 |
+| 编号 | 功能描述 | 需要用例数 | 状态 |
+|------|----------|-----------|------|
+| FR-011 | 首页展示统计卡片：问卷总数、进行中数、总回收量、今日新增 | 2 | [x] |
+| FR-012 | 首页展示回收趋势折线图 | 2 | [x] |
+| FR-013 | 首页展示问卷状态分布饼图（草稿/进行中/已关闭） | 2 | [x] |
+| FR-014 | 首页展示最近问卷表格（标题、状态、回收数量、创建时间） | 2 | [x] |
+| FR-015 | 最近问卷表格支持快捷操作（统计、编辑） | 2 | [x] |
+| FR-016 | "查看全部"链接跳转至问卷管理列表页 | 2 | [x] |
 
-### 模块3：题目管理 (Question)
+### 问卷管理 - 列表模块
 
-| 编号 | 描述 | 关联接口 | 需要用例数 | 状态 |
-|------|------|----------|-----------|------|
-| [x] FR-016 | 添加题目（单选/多选/填空/评分/下拉） | POST /api/questionnaires/{id}/questions | 4 | 已覆盖 |
-| [x] FR-017 | 更新题目配置 | PUT /api/questionnaires/{id}/questions/{qid} | 3 | 已覆盖 |
-| [x] FR-018 | 删除题目 | DELETE /api/questionnaires/{id}/questions/{qid} | 2 | 已覆盖 |
-| [x] FR-019 | 题目拖拽排序 | PUT /api/questionnaires/{id}/questions/sort | 3 | 已覆盖 |
-| [x] FR-020 | 选择题选项数量校验（最少2项，最多20项） | POST/PUT questions | 2 | 已覆盖 |
-| [x] FR-021 | 题目数量上限校验（每问卷最多50题） | POST questions | 2 | 已覆盖 |
+| 编号 | 功能描述 | 需要用例数 | 状态 |
+|------|----------|-----------|------|
+| FR-017 | 问卷列表展示字段：ID、标题、状态、回收数量、创建时间、最后修改时间、操作 | 2 | [x] |
+| FR-018 | 问卷列表支持按状态筛选（全部/草稿/进行中/已结束） | 2 | [x] |
+| FR-019 | 问卷列表支持按标题关键字搜索 | 2 | [x] |
+| FR-020 | 问卷列表支持分页展示，每页默认20条，可切换 10/20/50/100 | 2 | [x] |
+| FR-021 | 列表加载时显示 loading 状态 | 2 | [x] |
+| FR-022 | 列表无数据时展示空状态和"新建问卷"快捷入口 | 2 | [x] |
+| FR-023 | 点击"新建问卷"按钮跳转问卷创建/编辑页 | 2 | [x] |
 
-### 模块4：问卷发布与生命周期 (Publish/Lifecycle)
+### 问卷管理 - 操作模块
 
-| 编号 | 描述 | 关联接口 | 需要用例数 | 状态 |
-|------|------|----------|-----------|------|
-| [x] FR-022 | 发布问卷（含截止时间、最大回收数、设备限制配置） | POST /api/questionnaires/{id}/publish | 4 | 已覆盖 |
-| [x] FR-023 | 发布校验-无题目不允许发布 | POST /api/questionnaires/{id}/publish | 2 | 已覆盖 |
-| [x] FR-024 | 关闭问卷 | PUT /api/questionnaires/{id}/close | 3 | 已覆盖 |
-| [x] FR-025 | 获取问卷访问链接 | GET /api/questionnaires/{id}/link | 2 | 已覆盖 |
-| [x] FR-026 | 获取问卷二维码 | GET /api/questionnaires/{id}/qrcode | 2 | 已覆盖 |
+| 编号 | 功能描述 | 需要用例数 | 状态 |
+|------|----------|-----------|------|
+| FR-024 | 草稿问卷显示操作：编辑、统计、发布、复制、删除 | 2 | [x] |
+| FR-025 | 进行中问卷显示操作：编辑、统计、关闭 | 2 | [x] |
+| FR-026 | 已结束问卷显示操作：统计、复制、删除 | 2 | [x] |
+| FR-027 | 点击"编辑"跳转至问卷编辑页 | 2 | [x] |
+| FR-028 | 点击"统计"跳转至统计概览页 | 2 | [x] |
+| FR-029 | 点击"发布"打开发布配置弹窗 | 2 | [x] |
+| FR-030 | 点击"复制"复制问卷，成功后刷新列表 | 2 | [x] |
+| FR-031 | 删除无回收数据的问卷需确认 | 2 | [x] |
+| FR-032 | 删除有回收数据的问卷需二次确认，提示"删除后数据不可恢复" | 2 | [x] |
+| FR-033 | 关闭进行中问卷需确认，提示"关闭后不可恢复" | 2 | [x] |
 
-### 模块5：H5端问卷填写 (Fill)
+### 问卷管理 - 发布配置模块
 
-| 编号 | 描述 | 关联接口 | 需要用例数 | 状态 |
-|------|------|----------|-----------|------|
-| [x] FR-027 | 通过链接获取问卷内容（无需登录） | GET /api/fill/{linkId} | 3 | 已覆盖 |
-| [x] FR-028 | 提交问卷答案 | POST /api/fill/{linkId}/submit | 4 | 已覆盖 |
-| [x] FR-029 | 问卷已关闭时访问提示 | GET /api/fill/{linkId} | 2 | 已覆盖 |
-| [x] FR-030 | 问卷不存在时访问提示 | GET /api/fill/{linkId} | 2 | 已覆盖 |
-| [x] FR-031 | 同一设备重复提交限制 | POST /api/fill/{linkId}/submit | 2 | 已覆盖 |
-| [x] FR-032 | 设备提交状态查询 | GET /api/fill/{linkId}/status | 2 | 已覆盖 |
-| [x] FR-033 | 必填项校验 | POST /api/fill/{linkId}/submit | 2 | 已覆盖 |
-| [x] FR-034 | 达到最大回收数后自动关闭 | POST /api/fill/{linkId}/submit | 2 | 已覆盖 |
-| [x] FR-035 | 提交频率限制（同一IP 1分钟最多10次） | POST /api/fill/{linkId}/submit + RateLimiter | 2 | 已覆盖 |
+| 编号 | 功能描述 | 需要用例数 | 状态 |
+|------|----------|-----------|------|
+| FR-034 | 发布弹窗支持设置截止时间（日期时间选择器，可选） | 2 | [x] |
+| FR-035 | 发布弹窗支持设置最大回收份数（数字输入，1-100000，可选） | 2 | [x] |
+| FR-036 | 发布弹窗支持设置设备限制开关（限制同一设备重复提交） | 2 | [x] |
+| FR-037 | 点击"确认发布"后问卷状态变为进行中，提示"发布成功" | 2 | [x] |
+| FR-038 | 发布失败时显示错误提示 | 2 | [x] |
+| FR-039 | 发布过程中按钮显示 loading 状态 | 2 | [x] |
 
-### 模块6：数据统计与导出 (Statistics)
+### 问卷创建/编辑模块
 
-| 编号 | 描述 | 关联接口 | 需要用例数 | 状态 |
-|------|------|----------|-----------|------|
-| [x] FR-036 | 统计概览（总回收量、今日新增、时间趋势） | GET /api/statistics/{id}/overview | 3 | 已覆盖 |
-| [x] FR-037 | 逐题统计（选择题选项占比） | GET /api/statistics/{id}/questions | 3 | 已覆盖 |
-| [x] FR-038 | 填空题原始回答列表（分页、关键字搜索） | GET /api/statistics/{id}/questions/{qid}/texts | 3 | 已覆盖 |
-| [x] FR-039 | 数据导出（Excel/CSV） | POST /api/statistics/{id}/export | 3 | 已覆盖 |
-| [x] FR-040 | 导出文件下载 | GET /api/statistics/exports/{exportId}/download | 3 | 已覆盖 |
-| [x] FR-041 | 导出任务列表查询 | GET /api/statistics/exports | 2 | 已覆盖 |
-| [x] FR-042 | 按时间范围筛选统计数据 | GET /api/statistics/{id}/overview + questions | 2 | 已覆盖 |
+| 编号 | 功能描述 | 需要用例数 | 状态 |
+|------|----------|-----------|------|
+| FR-040 | 新建问卷时自动创建"未命名问卷"草稿 | 2 | [x] |
+| FR-041 | 编辑模式加载已有问卷数据（标题、描述、题目列表） | 2 | [x] |
+| FR-042 | 支持编辑问卷标题和描述 | 2 | [x] |
+| FR-043 | 三栏布局：左侧题型面板 + 中间编辑区 + 右侧属性面板 | 2 | [x] |
+| FR-044 | 左侧题型面板展示可添加的题型：单选题、多选题、单行填空、多行填空、评分题、下拉选择 | 2 | [x] |
+| FR-045 | 点击题型按钮向中间编辑区添加新题目 | 2 | [x] |
+| FR-046 | 中间编辑区展示已添加的题目卡片列表 | 2 | [x] |
+| FR-047 | 拖拽调整题目顺序（vuedraggable） | 2 | [x] |
+| FR-048 | 点击题目卡片后右侧面板展示题目属性配置 | 2 | [x] |
+| FR-049 | 属性面板支持编辑题干 | 2 | [x] |
+| FR-050 | 属性面板支持设置是否必填（开关） | 2 | [x] |
+| FR-051 | 选择类题目（单选/多选/下拉）支持编辑选项列表 | 2 | [x] |
+| FR-052 | 选项列表至少保留2项，不可全部删除 | 2 | [x] |
+| FR-053 | 支持添加新选项 | 2 | [x] |
+| FR-054 | 评分题支持配置最大评分值（3-10） | 2 | [x] |
+| FR-055 | 填空题支持配置文本长度限制（10-2000） | 2 | [x] |
+| FR-056 | 支持删除题目 | 2 | [x] |
+| FR-057 | 支持复制题目 | 2 | [x] |
+| FR-058 | 自动保存草稿（每30秒），界面展示"已自动保存 HH:mm:ss" | 2 | [x] |
+| FR-059 | 手动保存草稿按钮，成功后提示"保存成功" | 2 | [x] |
+| FR-060 | 保存/操作失败时显示错误提示 | 2 | [x] |
+| FR-061 | 预览功能：弹窗内嵌手机框展示 H5 效果 | 2 | [x] |
+| FR-062 | 编辑页支持直接发布（同列表页的发布弹窗） | 2 | [x] |
+| FR-063 | 面包屑导航支持返回问卷管理 | 2 | [x] |
+| FR-064 | 无题目时显示"暂无题目，请从左侧添加题型"提示 | 2 | [x] |
+| FR-065 | 未选中题目时右侧面板提示"点击题目进行属性配置" | 2 | [x] |
+
+### 数据统计 - 统计概览模块
+
+| 编号 | 功能描述 | 需要用例数 | 状态 |
+|------|----------|-----------|------|
+| FR-066 | 统计概览展示统计卡片：总回收量、今日新增、有效回收率、平均完成时长 | 2 | [x] |
+| FR-067 | 顶部下拉选择器支持切换不同问卷 | 2 | [x] |
+| FR-068 | 时间筛选支持快捷切换：近7天/近30天/全部 | 2 | [x] |
+| FR-069 | 时间筛选支持自定义日期范围（开始日期~结束日期） | 2 | [x] |
+| FR-070 | 展示每日回收数量趋势折线图，支持 hover 显示当日数值 | 2 | [x] |
+| FR-071 | 时间筛选变化时折线图联动更新 | 2 | [x] |
+| FR-072 | 底部快捷按钮支持跳转"逐题统计"和"导出数据" | 2 | [x] |
+| FR-073 | 页面加载时显示 loading 状态 | 2 | [x] |
+
+### 数据统计 - 逐题统计模块
+
+| 编号 | 功能描述 | 需要用例数 | 状态 |
+|------|----------|-----------|------|
+| FR-074 | 逐题展示选择题统计：题干 + 各选项选择人数和占比 | 2 | [x] |
+| FR-075 | 选择题图表支持饼图/柱状图切换 | 2 | [x] |
+| FR-076 | 评分题展示平均评分、评分人数和分值分布 | 2 | [x] |
+| FR-077 | 填空题展示原始回答列表（内容、提交时间），按时间倒序 | 2 | [x] |
+| FR-078 | 填空题回答列表支持分页（每页20条） | 2 | [x] |
+| FR-079 | 时间筛选与逐题统计联动更新 | 2 | [x] |
+| FR-080 | 暂无统计数据时展示空状态 | 2 | [x] |
+
+### 数据统计 - 数据导出模块
+
+| 编号 | 功能描述 | 需要用例数 | 状态 |
+|------|----------|-----------|------|
+| FR-081 | 导出配置：选择问卷（下拉选择器） | 2 | [x] |
+| FR-082 | 导出配置：选择导出格式（Excel / CSV） | 2 | [x] |
+| FR-083 | 导出配置：选择时间范围（可选） | 2 | [x] |
+| FR-084 | 显示预计导出数据量 | 2 | [x] |
+| FR-085 | 点击"开始导出"创建导出任务 | 2 | [x] |
+| FR-086 | 未选择问卷时"开始导出"按钮置灰/禁用 | 2 | [x] |
+| FR-087 | 导出过程中按钮显示 loading 状态 | 2 | [x] |
+| FR-088 | 导出成功提示"导出任务已创建" | 2 | [x] |
+| FR-089 | 导出失败显示错误提示 | 2 | [x] |
+| FR-090 | 导出历史表格展示：文件名、问卷标题、格式、数据量、创建时间、状态 | 2 | [x] |
+| FR-091 | 已完成的导出支持点击"下载" | 2 | [x] |
+| FR-092 | 失败的导出支持"重试" | 2 | [x] |
+| FR-093 | 生成中的导出显示禁用的"下载"按钮 | 2 | [x] |
+
+### 路由与导航模块
+
+| 编号 | 功能描述 | 需要用例数 | 状态 |
+|------|----------|-----------|------|
+| FR-094 | 左侧边栏菜单导航（问卷管理、数据统计） | 2 | [x] |
+| FR-095 | 顶部显示系统名称和管理员账号名 | 2 | [x] |
+| FR-096 | 退出登录功能：清除 Token，跳转登录页 | 2 | [x] |
+| FR-097 | 路由守卫：未登录重定向至 /login | 2 | [x] |
+| FR-098 | 404路由：不存在的路径重定向至 /login | 2 | [x] |
 
 ---
 
 ## 二、业务流程清单
 
-| 编号 | 描述 | 涉及模块 | 状态 |
-|------|------|----------|------|
-| [x] BF-001 | 管理员登录 → 创建问卷 → 添加题目 → 发布 → 获取链接 | Auth + Questionnaire + Question + Publish | 已覆盖 |
-| [x] BF-002 | 受访者访问链接 → 填写问卷 → 提交 | Fill | 已覆盖 |
-| [x] BF-003 | 管理员查看统计 → 导出数据 | Statistics | 已覆盖 |
-| [x] BF-004 | 问卷生命周期：草稿 → 进行中 → 已结束 | Questionnaire + Publish | 已覆盖 |
-| [x] BF-005 | 问卷复制 → 修改 → 重新发布 | Questionnaire | 已覆盖 |
+| 编号 | 业务流程描述 | 涉及页面 | 需要用例数 | 状态 |
+|------|-------------|---------|-----------|------|
+| BF-001 | 管理员登录 → 进入首页概览 → 查看统计数据 | 登录页、首页 | 3 | [x] |
+| BF-002 | 新建问卷 → 添加题目 → 配置属性 → 保存草稿 | 问卷列表、问卷编辑 | 3 | [x] |
+| BF-003 | 编辑问卷 → 调整题目顺序 → 预览 → 发布 | 问卷编辑 | 3 | [x] |
+| BF-004 | 发布问卷 → 配置发布选项 → 确认发布 | 问卷列表/编辑、发布弹窗 | 3 | [x] |
+| BF-005 | 关闭/暂停进行中问卷 | 问卷列表 | 2 | [x] |
+| BF-006 | 删除问卷（无数据/有数据） | 问卷列表 | 3 | [x] |
+| BF-007 | 复制问卷作为模板 | 问卷列表 | 2 | [x] |
+| BF-008 | 查看统计概览 → 切换问卷 → 调整时间范围 | 统计概览 | 3 | [x] |
+| BF-009 | 查看逐题统计 → 切换图表类型 → 查看填空回答 | 逐题统计 | 3 | [x] |
+| BF-010 | 导出数据 → 选择格式和时间 → 下载文件 | 数据导出 | 3 | [x] |
+| BF-011 | Token过期 → 静默刷新 → 继续操作 / 跳转登录 | 全局 | 2 | [x] |
 
 ---
 
 ## 三、用户角色清单
 
-| 编号 | 角色 | 权限范围 | 状态 |
-|------|------|----------|------|
-| [x] ROLE-001 | 问卷管理员 (admin) | 所有后台管理接口（需JWT鉴权） | 已覆盖 |
-| [x] ROLE-002 | 受访者（匿名用户） | 仅H5填写接口（/api/fill/*，无需登录） | 已覆盖 |
+| 编号 | 角色 | 描述 | 权限范围 |
+|------|------|------|---------|
+| ROLE-001 | 问卷管理员 | 使用PC Web管理后台的唯一管理角色 | 登录、创建/编辑/发布/关闭/删除问卷、查看统计、导出数据 |
 
 ---
 
-## 四、编码实现清单（接口与需求交叉比对）
+## 四、编码实现清单（与需求交叉比对）
 
-### Controller 层接口
+### 已实现的页面路由
 
-| 接口 | 方法 | 对应需求 | 鉴权要求 | 状态 |
-|------|------|----------|----------|------|
-| /api/auth/login | POST | FR-001~004 | 公开 | [x] 已比对 |
-| /api/auth/refresh | POST | FR-005 | 公开 | [x] 已比对 |
-| /api/auth/logout | POST | FR-006 | 需JWT | [x] 已比对 |
-| /api/questionnaires | GET | FR-009 | 需JWT | [x] 已比对 |
-| /api/questionnaires | POST | FR-008 | 需JWT | [x] 已比对 |
-| /api/questionnaires/{id} | GET | FR-010 | 需JWT | [x] 已比对 |
-| /api/questionnaires/{id} | PUT | FR-011 | 需JWT | [x] 已比对 |
-| /api/questionnaires/{id} | DELETE | FR-012 | 需JWT | [x] 已比对 |
-| /api/questionnaires/{id}/questions | POST | FR-016 | 需JWT | [x] 已比对 |
-| /api/questionnaires/{id}/questions/{qid} | PUT | FR-017 | 需JWT | [x] 已比对 |
-| /api/questionnaires/{id}/questions/{qid} | DELETE | FR-018 | 需JWT | [x] 已比对 |
-| /api/questionnaires/{id}/questions/sort | PUT | FR-019 | 需JWT | [x] 已比对 |
-| /api/questionnaires/{id}/publish | POST | FR-022~023 | 需JWT | [x] 已比对 |
-| /api/questionnaires/{id}/close | PUT | FR-024 | 需JWT | [x] 已比对 |
-| /api/questionnaires/{id}/copy | POST | FR-013 | 需JWT | [x] 已比对 |
-| /api/questionnaires/{id}/draft | PUT | FR-014 | 需JWT | [x] 已比对 |
-| /api/questionnaires/{id}/preview | GET | FR-015 | 需JWT | [x] 已比对 |
-| /api/questionnaires/{id}/qrcode | GET | FR-026 | 需JWT | [x] 已比对 |
-| /api/questionnaires/{id}/link | GET | FR-025 | 需JWT | [x] 已比对 |
-| /api/fill/{linkId} | GET | FR-027,029,030 | 公开 | [x] 已比对 |
-| /api/fill/{linkId}/submit | POST | FR-028,031,033~035 | 公开 | [x] 已比对 |
-| /api/fill/{linkId}/status | GET | FR-032 | 公开 | [x] 已比对 |
-| /api/statistics/{id}/overview | GET | FR-036,042 | 需JWT | [x] 已比对 |
-| /api/statistics/{id}/questions | GET | FR-037,042 | 需JWT | [x] 已比对 |
-| /api/statistics/{id}/questions/{qid}/texts | GET | FR-038 | 需JWT | [x] 已比对 |
-| /api/statistics/{id}/export | POST | FR-039 | 需JWT | [x] 已比对 |
-| /api/statistics/exports/{exportId}/download | GET | FR-040 | 需JWT | [x] 已比对 |
-| /api/statistics/exports | GET | FR-041 | 需JWT | [x] 已比对 |
+| 路由路径 | 组件 | 对应功能 | 与需求一致 |
+|----------|------|---------|-----------|
+| /login | LoginView.vue | 管理员登录 | ✅ |
+| /dashboard | DashboardView.vue | 首页概览 | ✅ |
+| /questionnaire/list | QuestionnaireList.vue | 问卷列表 | ✅ |
+| /questionnaire/edit/:id? | QuestionnaireEdit.vue | 问卷创建/编辑 | ✅ |
+| /statistics/overview/:id | StatisticsOverview.vue | 统计概览 | ✅ |
+| /statistics/detail/:id | StatisticsDetail.vue | 逐题统计 | ✅ |
+| /statistics/export | DataExport.vue | 数据导出 | ✅ |
 
-### 数据模型（7张表）
+### 已实现的 API 接口
 
-| 表名 | 对应需求 | 状态 |
-|------|----------|------|
-| t_admin | FR-001~007 (管理员认证) | [x] 已比对 |
-| t_questionnaire | FR-008~015, FR-022~026 (问卷管理与生命周期) | [x] 已比对 |
-| t_question | FR-016~021 (题目管理) | [x] 已比对 |
-| t_question_option | FR-016~020 (选项管理) | [x] 已比对 |
-| t_response | FR-027~035 (答卷记录) | [x] 已比对 |
-| t_answer | FR-028, FR-036~038 (答案数据) | [x] 已比对 |
-| t_export_task | FR-039~041 (导出任务) | [x] 已比对 |
+| API 模块 | 接口函数 | 对应功能 |
+|----------|---------|---------|
+| auth.ts | loginApi | 管理员登录 |
+| auth.ts | refreshTokenApi | Token刷新 |
+| auth.ts | logoutApi | 退出登录 |
+| questionnaire.ts | getQuestionnairesApi | 问卷列表查询 |
+| questionnaire.ts | createQuestionnaireApi | 创建问卷 |
+| questionnaire.ts | getQuestionnaireDetailApi | 问卷详情 |
+| questionnaire.ts | updateQuestionnaireApi | 更新问卷基本信息 |
+| questionnaire.ts | deleteQuestionnaireApi | 删除问卷 |
+| questionnaire.ts | addQuestionApi | 添加题目 |
+| questionnaire.ts | updateQuestionApi | 更新题目 |
+| questionnaire.ts | deleteQuestionApi | 删除题目 |
+| questionnaire.ts | sortQuestionsApi | 题目排序 |
+| questionnaire.ts | publishQuestionnaireApi | 发布问卷 |
+| questionnaire.ts | closeQuestionnaireApi | 关闭问卷 |
+| questionnaire.ts | copyQuestionnaireApi | 复制问卷 |
+| questionnaire.ts | saveDraftApi | 保存草稿 |
+| questionnaire.ts | previewQuestionnaireApi | 预览问卷 |
+| questionnaire.ts | getLinkApi | 获取问卷链接 |
+| statistics.ts | getStatisticsOverviewApi | 统计概览数据 |
+| statistics.ts | getQuestionStatisticsApi | 逐题统计数据 |
+| statistics.ts | getTextAnswersApi | 填空题回答列表 |
+| statistics.ts | exportDataApi | 导出数据 |
+| statistics.ts | getExportListApi | 导出历史 |
+| statistics.ts | getExportDownloadUrl | 导出下载地址 |
+
+### 部署地址信息
+
+| 端 | 访问地址 | 默认账号 | 默认密码 |
+|----|---------|---------|---------|
+| 管理后台 Admin | http://10.32.129.153:3002 | admin | admin123 |
+| H5 移动端 | http://10.32.129.153:3003 | - | - |
+| 后端 API | http://10.32.129.153:8082 | admin | admin123 |
 
 ---
 
-## 五、覆盖率统计
+## 五、统计摘要
 
-| 维度 | 总数 | 已覆盖 | 覆盖率 |
-|------|------|--------|--------|
-| 功能需求 (FR) | 42 | 42 | 100% |
-| 业务流程 (BF) | 5 | 5 | 100% |
-| 用户角色 (ROLE) | 2 | 2 | 100% |
-| API接口 | 28 | 28 | 100% |
-| 数据表 | 7 | 7 | 100% |
-| **测试用例总数** | **110** | - | - |
+| 统计项 | 数量 |
+|--------|------|
+| 功能需求总数（FR） | 98 |
+| 业务流程总数（BF） | 11 |
+| 用户角色总数（ROLE） | 1 |
+| 预计最少测试用例数 | 196+ |
+| 已覆盖需求数 | 98 + 11 = 109 |
+| 需求覆盖率 | **100%** |
